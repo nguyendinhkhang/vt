@@ -29,6 +29,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/delete-data-ware-house', [WareHouseController::class, 'deleteDataWhenID'])->name('Delete-Data');
     Route::post('/create-data-ware-house', [WareHouseController::class, 'createDataWhenID'])->name('Create-Data');
     Route::post('/update-so-luong-order', [WareHouseController::class, 'updateSoLuongTrongKho'])->name('Update-so-luong-order');
+    Route::get('/get-details-order/{id}', [WareHouseController::class, 'getListOrderWhenHome'])->name('get-details-order');
 
     Route::get('/get-data-order', [OrderController::class, 'getData'])->name('Get-Order');
     Route::get('/get-data-order/{id}', [OrderController::class, 'getDataWhenID'])->name('Get-Order-When-ID');

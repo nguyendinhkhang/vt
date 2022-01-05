@@ -38,7 +38,17 @@
                   {{ data.so_luong_trong_kho }}
                 </td>
 
-                <td>
+                <td v-if="data.so_luong_da_xuat > 0" @click="getDataXuat">
+                    <router-link
+                    class="text-danger text-decoration-none "
+                    :to="{
+                      name: 'HomeDetailsOrderExportComponent',
+                      params: { id: data.id_kho_hang},
+                    }"
+                    >{{ data.so_luong_da_xuat }}</router-link
+                  >
+                </td>
+                <td v-else>
                   {{ data.so_luong_da_xuat }}
                 </td>
 
@@ -247,6 +257,10 @@ export default {
           });
       }
     },
+
+    getDataXuat(){
+        console.log("hi");
+    }
   },
 };
 </script>

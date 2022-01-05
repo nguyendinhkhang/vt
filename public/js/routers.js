@@ -4,6 +4,7 @@ import HomeComponent from '../../resources/js/home/HomeComponent';
 import HomeEditComponent from '../../resources/js/home/HomeEditComponent';
 import HomeCreateComponent from '../../resources/js/home/HomeCreateComponent';
 import HomeExportComponent from '../../resources/js/home/HomeExportComponent';
+import HomeDetailsOrderExportComponent from '../../resources/js/home/HomeDetailsOrderExportComponent';
 
 import OrderComponent from '../../resources/js/order/OrderComponent';
 import OrderSetUserDeadComponent from '../../resources/js/order/OrderSetUserDeadComponent';
@@ -58,7 +59,11 @@ const routes = [
         component: OrderSetUserDeadComponent,
         name: "OrderSetUserDeadComponent"
     },
-    
+    {
+        path: "/home/chi-tiet-van-chuyen?don=:id",
+        component: HomeDetailsOrderExportComponent,
+        name: "HomeDetailsOrderExportComponent"
+    },
 ]
 
 const router = new VueRouter({

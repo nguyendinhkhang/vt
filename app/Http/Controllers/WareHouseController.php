@@ -129,4 +129,21 @@ class WareHouseController extends Controller
             ]);
         }
     }
+
+    public function getListOrderWhenHome(Request $request, $id)
+    {
+        try {
+            $data = TlsQuanLyKhoHang::getListOrderWhenHome($id);
+
+            return response()->json([
+                'status_code' => 200,
+                'data' => $data,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status_code' => 500,
+                'Error' => 'Error' + $th,
+            ]);
+        }
+    }
 }
