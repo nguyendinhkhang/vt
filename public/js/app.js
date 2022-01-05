@@ -33451,7 +33451,7 @@ var render = function () {
             ],
             staticClass: "form-control",
             attrs: {
-              type: "text",
+              type: "password",
               "aria-label": "Default",
               "aria-describedby": "inputGroup-sizing-default",
             },

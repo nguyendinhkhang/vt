@@ -11,7 +11,7 @@
 
           <div class="input-group mb-3">
             <span class="input-group-text w-25" id="inputGroup-sizing-default">Mật khẩu</span>
-            <input v-on:keyup.enter="login" type="text" v-model="pwd" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            <input v-on:keyup.enter="login" type="password" v-model="pwd" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
           </div>
           <button type="button" class="btn btn-danger w-100" @click="login">Đăng nhập</button>
       </div>
