@@ -5962,7 +5962,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       errGia_nhap: null,
       errGia_ban: null,
       errKho_hang: null,
-      errSo_luong_trong_kho: null
+      errSo_luong_trong_kho: null,
+      err: false
     };
   },
   created: function created() {
@@ -5992,7 +5993,49 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
+                _this2.err = false;
+
+                if (_this2.ma_so_seri == "" || _this2.ma_so_seri == null || _this2.ma_so_seri.length > 255) {
+                  _this2.errMa_so_seri = "Vui lòng nhập seri hoặc nhập đúng định dạng";
+                  _this2.err = true;
+                }
+
+                if (_this2.ten_san_pham == "" || _this2.ten_san_pham == null || _this2.ten_san_pham.length > 255) {
+                  _this2.errTen_san_pham = "Vui lòng nhập tên sản phẩm hoặc nhập đúng định dạng";
+                  _this2.err = true;
+                }
+
+                if (_this2.nha_cung_cap == "" || _this2.nha_cung_cap == null || _this2.nha_cung_cap.length > 255) {
+                  _this2.errNha_cung_cap = "Vui lòng nhập nhà cung cấp hoặc nhập đúng định dạng";
+                  _this2.err = true;
+                }
+
+                if (_this2.gia_nhap == "" || _this2.gia_nhap == null) {
+                  _this2.errGia_nhap = "Vui lòng nhập giá nhập hoặc nhập đúng định dạng";
+                  _this2.err = true;
+                }
+
+                if (_this2.gia_ban == "" || _this2.gia_ban == null) {
+                  _this2.errGia_ban = "Vui lòng nhập giá bán hoặc nhập đúng định dạng";
+                  _this2.err = true;
+                }
+
+                if (_this2.kho_hang == "" || _this2.gia_ban == null) {
+                  _this2.errKho_hang = "Vui lòng nhập kho hàng hoặc nhập đúng định dạng";
+                  _this2.err = true;
+                }
+
+                if (_this2.so_luong_trong_kho == "" || _this2.so_luong_trong_kho == null) {
+                  _this2.errSo_luong_trong_kho = "Vui lòng nhập số lượng hoặc đúng nhập định dạng";
+                  _this2.err = true;
+                }
+
+                if (_this2.err) {
+                  _context2.next = 11;
+                  break;
+                }
+
+                _context2.next = 11;
                 return axios.post("/api/create-data-ware-house", {
                   ma_so_seri: _this2.ma_so_seri,
                   ten_san_pham: _this2.ten_san_pham,
@@ -6015,7 +6058,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   calert("Có vấn đề đã xảy ra, xin vui lòng thử lại sau.");
                 });
 
-              case 2:
+              case 11:
               case "end":
                 return _context2.stop();
             }

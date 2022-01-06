@@ -131,6 +131,7 @@ export default {
       errGia_ban: null,
       errKho_hang: null,
       errSo_luong_trong_kho: null,
+      err: false,
     };
   },
   async created() {
@@ -138,28 +139,36 @@ export default {
   },
   methods: {
     async createDataKho() {
-      // if(this.ma_so_seri == ""){
-      //     this.errMa_so_seri = "Vui lòng nhập seri hoặc nhập đúng định dạng"
-      // }
-      // else if(this.ten_san_pham == ""){
-      //   this.errTen_san_pham = "Vui lòng nhập tên sản phẩm hoặc nhập đúng định dạng"
-      // }
-      // else if(this.nha_cung_cap == "" ){
-      //   this.errNha_cung_cap = "Vui lòng nhập nhà cung cấp hoặc nhập đúng định dạng"
-      // }
-      // else if(this.gia_nhap == ""){
-      //   this.errGia_nhap = "Vui lòng nhập giá nhập hoặc nhập đúng định dạng"
-      // }
-      // else if(this.gia_ban == ""){
-      //   this.errGia_ban = "Vui lòng nhập giá bán hoặc nhập đúng định dạng"
-      // }
-      // else if(this.kho_hang == ""){
-      //   this.errKho_hang = "Vui lòng nhập kho hàng hoặc nhập đúng định dạng"
-      // }
-      // else if(this.so_luong_trong_kho == ""){
-      //   this.errSo_luong_trong_kho = "Vui lòng nhập số lượng hoặc đúng nhập định dạng"
-      // }
-      // else{
+      this.err = false;
+      if(this.ma_so_seri == "" || this.ma_so_seri == null || this.ma_so_seri.length > 255){
+          this.errMa_so_seri = "Vui lòng nhập seri hoặc nhập đúng định dạng"
+          this.err = true
+      }
+      if(this.ten_san_pham == "" || this.ten_san_pham == null || this.ten_san_pham.length > 255){
+        this.errTen_san_pham = "Vui lòng nhập tên sản phẩm hoặc nhập đúng định dạng"
+        this.err = true
+      }
+      if(this.nha_cung_cap == "" || this.nha_cung_cap == null || this.nha_cung_cap.length > 255){
+        this.errNha_cung_cap = "Vui lòng nhập nhà cung cấp hoặc nhập đúng định dạng"
+        this.err = true
+      }
+      if(this.gia_nhap == ""|| this.gia_nhap == null){
+        this.errGia_nhap = "Vui lòng nhập giá nhập hoặc nhập đúng định dạng"
+        this.err = true
+      }
+      if(this.gia_ban == ""|| this.gia_ban == null){
+        this.errGia_ban = "Vui lòng nhập giá bán hoặc nhập đúng định dạng"
+        this.err = true
+      }
+      if(this.kho_hang == "" || this.gia_ban == null){
+        this.errKho_hang = "Vui lòng nhập kho hàng hoặc nhập đúng định dạng"
+        this.err = true
+      }
+      if(this.so_luong_trong_kho == "" || this.so_luong_trong_kho == null){
+        this.errSo_luong_trong_kho = "Vui lòng nhập số lượng hoặc đúng nhập định dạng"
+        this.err = true
+      }
+      if(!this.err){
         await axios
         .post("/api/create-data-ware-house", {
           ma_so_seri: this.ma_so_seri,
@@ -181,7 +190,7 @@ export default {
         .catch((err) => {
           calert("Có vấn đề đã xảy ra, xin vui lòng thử lại sau.");
         });
-      // }
+      }
     },
   },
 };
