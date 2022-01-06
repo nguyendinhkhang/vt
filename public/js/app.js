@@ -6519,6 +6519,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     id: String,
@@ -6535,10 +6542,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       gia_ban: null,
       kho_hang: null,
       so_luong_trong_kho: null,
-      // id_user: null,
       dataSelected: null,
-      id_kho_hang: null // options: [],
-
+      id_kho_hang: null,
+      errMa_so_seri: null,
+      errTen_san_pham: null,
+      errNha_cung_cap: null,
+      errGia_nhap: null,
+      errGia_ban: null,
+      errKho_hang: null,
+      errSo_luong_trong_kho: null,
+      err: false
     };
   },
   created: function created() {
@@ -6584,7 +6597,49 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
+                _this2.err = false;
+
+                if (_this2.ma_so_seri == "" || _this2.ma_so_seri == null || _this2.ma_so_seri.length > 255) {
+                  _this2.errMa_so_seri = "Vui lòng nhập seri hoặc nhập đúng định dạng";
+                  _this2.err = true;
+                }
+
+                if (_this2.ten_san_pham == "" || _this2.ten_san_pham == null || _this2.ten_san_pham.length > 255) {
+                  _this2.errTen_san_pham = "Vui lòng nhập tên sản phẩm hoặc nhập đúng định dạng";
+                  _this2.err = true;
+                }
+
+                if (_this2.nha_cung_cap == "" || _this2.nha_cung_cap == null || _this2.nha_cung_cap.length > 255) {
+                  _this2.errNha_cung_cap = "Vui lòng nhập nhà cung cấp hoặc nhập đúng định dạng";
+                  _this2.err = true;
+                }
+
+                if (_this2.gia_nhap == "" || _this2.gia_nhap == null) {
+                  _this2.errGia_nhap = "Vui lòng nhập giá nhập hoặc nhập đúng định dạng";
+                  _this2.err = true;
+                }
+
+                if (_this2.gia_ban == "" || _this2.gia_ban == null) {
+                  _this2.errGia_ban = "Vui lòng nhập giá bán hoặc nhập đúng định dạng";
+                  _this2.err = true;
+                }
+
+                if (_this2.kho_hang == "" || _this2.gia_ban == null) {
+                  _this2.errKho_hang = "Vui lòng nhập kho hàng hoặc nhập đúng định dạng";
+                  _this2.err = true;
+                }
+
+                if (_this2.so_luong_trong_kho == "" || _this2.so_luong_trong_kho == null) {
+                  _this2.errSo_luong_trong_kho = "Vui lòng nhập số lượng hoặc đúng nhập định dạng";
+                  _this2.err = true;
+                }
+
+                if (_this2.err) {
+                  _context2.next = 11;
+                  break;
+                }
+
+                _context2.next = 11;
                 return axios.post("/api/update-data-ware-house", {
                   id: _this2.id_kho_hang,
                   ma_so_seri: _this2.ma_so_seri,
@@ -6608,7 +6663,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log("Error: " + err);
                 });
 
-              case 2:
+              case 11:
               case "end":
                 return _context2.stop();
             }
@@ -36949,6 +37004,15 @@ var render = function () {
                       _vm._v("Mã số Seri"),
                     ]),
                     _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "text-danger",
+                        staticStyle: { "padding-left": "5px" },
+                      },
+                      [_vm._v(_vm._s(_vm.errMa_so_seri))]
+                    ),
+                    _vm._v(" "),
                     _c("input", {
                       directives: [
                         {
@@ -36976,6 +37040,15 @@ var render = function () {
                     _c("label", { attrs: { for: "nha_cung_cap" } }, [
                       _vm._v("Nhà cung cấp"),
                     ]),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "text-danger",
+                        staticStyle: { "padding-left": "5px" },
+                      },
+                      [_vm._v(_vm._s(_vm.errNha_cung_cap))]
+                    ),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -37005,6 +37078,15 @@ var render = function () {
                       _vm._v("Giá nhập"),
                     ]),
                     _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "text-danger",
+                        staticStyle: { "padding-left": "5px" },
+                      },
+                      [_vm._v(_vm._s(_vm.errGia_nhap))]
+                    ),
+                    _vm._v(" "),
                     _c("input", {
                       directives: [
                         {
@@ -37032,6 +37114,15 @@ var render = function () {
                     _c("label", { attrs: { for: "so_luong_trong_kho" } }, [
                       _vm._v("Tổng số lượng trong kho"),
                     ]),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "text-danger",
+                        staticStyle: { "padding-left": "5px" },
+                      },
+                      [_vm._v(_vm._s(_vm.errSo_luong_trong_kho))]
+                    ),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -37063,6 +37154,15 @@ var render = function () {
                       _vm._v("Tên sản phẩm"),
                     ]),
                     _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "text-danger",
+                        staticStyle: { "padding-left": "5px" },
+                      },
+                      [_vm._v(_vm._s(_vm.errTen_san_pham))]
+                    ),
+                    _vm._v(" "),
                     _c("input", {
                       directives: [
                         {
@@ -37091,6 +37191,15 @@ var render = function () {
                       _vm._v("Kho hàng"),
                     ]),
                     _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "text-danger",
+                        staticStyle: { "padding-left": "5px" },
+                      },
+                      [_vm._v(_vm._s(_vm.errKho_hang))]
+                    ),
+                    _vm._v(" "),
                     _c("input", {
                       directives: [
                         {
@@ -37118,6 +37227,15 @@ var render = function () {
                     _c("label", { attrs: { for: "gia_ban" } }, [
                       _vm._v("Giá bán"),
                     ]),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "text-danger",
+                        staticStyle: { "padding-left": "5px" },
+                      },
+                      [_vm._v(_vm._s(_vm.errGia_ban))]
+                    ),
                     _vm._v(" "),
                     _c("input", {
                       directives: [

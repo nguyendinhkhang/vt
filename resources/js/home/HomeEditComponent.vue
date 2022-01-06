@@ -18,6 +18,7 @@
             <div class="col-sm-6">
               <div class="form-group p-3">
                 <label for="seri">Mã số Seri</label>
+                <span class="text-danger" style="padding-left:5px">{{errMa_so_seri}}</span>
                 <input
                   type="text"
                   class="form-control"
@@ -28,6 +29,7 @@
 
               <div class="form-group p-3">
                 <label for="nha_cung_cap">Nhà cung cấp</label>
+                <span class="text-danger" style="padding-left:5px">{{errNha_cung_cap}}</span>
                 <input
                   type="text"
                   class="form-control"
@@ -38,6 +40,7 @@
 
               <div class="form-group p-3">
                 <label for="gia_nhap">Giá nhập</label>
+                <span class="text-danger" style="padding-left:5px">{{errGia_nhap}}</span>
                 <input
                   type="number"
                   class="form-control"
@@ -48,6 +51,7 @@
 
               <div class="form-group p-3">
                 <label for="so_luong_trong_kho">Tổng số lượng trong kho</label>
+                <span class="text-danger" style="padding-left:5px">{{errSo_luong_trong_kho}}</span>
                 <input
                   type="number"
                   class="form-control"
@@ -60,6 +64,7 @@
             <div class="col-sm-6">
               <div class="form-group p-3">
                 <label for="nameProduct">Tên sản phẩm</label>
+                <span class="text-danger" style="padding-left:5px">{{errTen_san_pham}}</span>
                 <input
                   type="text"
                   class="form-control"
@@ -70,6 +75,7 @@
 
               <div class="form-group p-3">
                 <label for="kho_hang">Kho hàng</label>
+                <span class="text-danger" style="padding-left:5px">{{errKho_hang}}</span>
                 <input
                   type="text"
                   class="form-control"
@@ -80,6 +86,7 @@
 
               <div class="form-group p-3">
                 <label for="gia_ban">Giá bán</label>
+                <span class="text-danger" style="padding-left:5px">{{errGia_ban}}</span>
                 <input
                   type="number"
                   class="form-control"
@@ -112,10 +119,16 @@ export default {
       gia_ban: null,
       kho_hang: null,
       so_luong_trong_kho: null,
-      // id_user: null,
       dataSelected: null,
       id_kho_hang: null,
-      // options: [],
+      errMa_so_seri: null,
+      errTen_san_pham: null,
+      errNha_cung_cap: null,
+      errGia_nhap: null,
+      errGia_ban: null,
+      errKho_hang: null,
+      errSo_luong_trong_kho: null,
+      err: false,
     };
   },
   async created() {
@@ -158,28 +171,60 @@ export default {
   },
   methods: {
     async updateDataKho() {
-      await axios
-        .post("/api/update-data-ware-house", {
-          id: this.id_kho_hang,
-          ma_so_seri: this.ma_so_seri,
-          ten_san_pham: this.ten_san_pham,
-          nha_cung_cap: this.nha_cung_cap,
-          gia_nhap: this.gia_nhap,
-          gia_ban: this.gia_ban,
-          kho_hang: this.kho_hang,
-          so_luong_trong_kho: this.so_luong_trong_kho,
-        })
-        .then((result) => {
-          if (result.data.status_code == 200) {
-            alert("Chúc mừng bạn đã cập nhật thành công.");
-            this.$router.push({path : "/home"});
-          } else {
-            console.log("Error: ");
-          }
-        })
-        .catch((err) => {
-          console.log("Error: " + err);
-        });
+      this.err = false;
+      if(this.ma_so_seri == "" || this.ma_so_seri == null || this.ma_so_seri.length > 255){
+          this.errMa_so_seri = "Vui lòng nhập seri hoặc nhập đúng định dạng"
+          this.err = true
+      }
+      if(this.ten_san_pham == "" || this.ten_san_pham == null || this.ten_san_pham.length > 255){
+        this.errTen_san_pham = "Vui lòng nhập tên sản phẩm hoặc nhập đúng định dạng"
+        this.err = true
+      }
+      if(this.nha_cung_cap == "" || this.nha_cung_cap == null || this.nha_cung_cap.length > 255){
+        this.errNha_cung_cap = "Vui lòng nhập nhà cung cấp hoặc nhập đúng định dạng"
+        this.err = true
+      }
+      if(this.gia_nhap == ""|| this.gia_nhap == null){
+        this.errGia_nhap = "Vui lòng nhập giá nhập hoặc nhập đúng định dạng"
+        this.err = true
+      }
+      if(this.gia_ban == ""|| this.gia_ban == null){
+        this.errGia_ban = "Vui lòng nhập giá bán hoặc nhập đúng định dạng"
+        this.err = true
+      }
+      if(this.kho_hang == "" || this.gia_ban == null){
+        this.errKho_hang = "Vui lòng nhập kho hàng hoặc nhập đúng định dạng"
+        this.err = true
+      }
+      if(this.so_luong_trong_kho == "" || this.so_luong_trong_kho == null){
+        this.errSo_luong_trong_kho = "Vui lòng nhập số lượng hoặc đúng nhập định dạng"
+        this.err = true
+      }
+
+      if(!this.err){
+        await axios
+          .post("/api/update-data-ware-house", {
+            id: this.id_kho_hang,
+            ma_so_seri: this.ma_so_seri,
+            ten_san_pham: this.ten_san_pham,
+            nha_cung_cap: this.nha_cung_cap,
+            gia_nhap: this.gia_nhap,
+            gia_ban: this.gia_ban,
+            kho_hang: this.kho_hang,
+            so_luong_trong_kho: this.so_luong_trong_kho,
+          })
+          .then((result) => {
+            if (result.data.status_code == 200) {
+              alert("Chúc mừng bạn đã cập nhật thành công.");
+              this.$router.push({path : "/home"});
+            } else {
+              console.log("Error: ");
+            }
+          })
+          .catch((err) => {
+            console.log("Error: " + err);
+          });
+      }
     },
   },
 };
