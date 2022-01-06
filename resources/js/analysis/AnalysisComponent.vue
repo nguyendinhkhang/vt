@@ -5,8 +5,12 @@
         <div class="row">
             <menu-left></menu-left>
 
-            <div class="col-sm-8">
-              <div class="row">
+            <div class="col-sm-10 custom-table">
+              <div class="pb-2 custom-location-btn">
+                <a class="btn w-25 btn-custom-center" @click="selectDataChange"> Thống kê </a>
+              </div>
+
+              <div class="row pb-3">
                 <div class="col-sm-6">
                   <!-- Chức năng thống kê -->
                   <div class="form-group">
@@ -44,16 +48,11 @@
               </div>
 
               <!-- Table -->
-              <table class="table">
+              <table class="table table-borderless">
                 <thead class="thead-dark">
                   <tr>
                     <th scope="col">ID</th>
-                    <!-- <th scope="col">Seri</th> -->
                     <th scope="col">Địa chỉ giao hàng</th>
-                    <!-- <th scope="col">Số lượng</th>
-                    <th scope="col">Giá bán</th>
-                    <th scope="col">Người giao hàng</th>
-                    <th scope="col">Kho hàng</th> -->
                     <th scope="col">Tên khách hàng</th>
                     <th scope="col">Số điện thoại</th>
                     <th scope="col">Ghi chú</th>
@@ -74,9 +73,9 @@
               </table>
             </div>
             
-            <div class="col-sm-2">
+            <!-- <div class="col-sm-2">
               <a class="btn btn-success w-100" @click="selectDataChange"> Thống kê </a>
-            </div>
+            </div> -->
         </div>
     </div>
   </div>

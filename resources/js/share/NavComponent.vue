@@ -1,19 +1,17 @@
 <template>
   <nav class="navbar navbar-toggleable-md navbar-light bg-faded custom-css">
     <div class="container-fluid">
-      <img
-        src="https://sieuthicongngheviettel.vn/wp-content/uploads/2021/11/Logo-Viettel.png"
-        width="100px"
-        height="30px"
-      />
-      <ul class="nav navbar navbar-left d-flex d-inline-flex">
+      <div class="navbar-header">
+               <a class="navbar-brand">Your way - Theo cách của bạn</a>
+           </div>
+      <ul class="nav navbar navbar-right d-flex d-inline-flex">
         <li class="nav-item d-inline-flex align-items-center mr-2">
-          <a class="nav-link custom-text-color" href="#"
+          <a class="nav-link custom-text-color" href=""
             >Xin Chào {{ this.name }}</a
           >
         </li>
-        <li class="nav-item d-inline-flex align-items-center mr-2">
-          <a class="nav-link custom-text-color" @click="logout">Thoát</a>
+        <li class="nav-item d-inline-flex align-items-center mr-2 logout-nav">
+          <a class="nav-link custom-text-color" href="/" @click="logout">Thoát</a>
         </li>
       </ul>
     </div>
@@ -54,13 +52,19 @@ export default {
 
 <style>
 .custom-css {
-  background-color: #f2f2f2;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  z-index: 0;
+  background-color: #bf3a30;
+  background-image: linear-gradient(315deg, #ea0a2a 0%, #ea0a50 74%);
 }
 .custom-text-color {
-  color: red;
+  color: white;
+  float: right;
 }
 .custom-text-color:hover {
-  color: black;
+  color: white;
+}
+.navbar-brand{
+  color: white !important;
+  padding-left: 46%;
 }
 </style>

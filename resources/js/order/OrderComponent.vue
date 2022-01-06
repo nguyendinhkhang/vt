@@ -5,8 +5,8 @@
       <div class="row">
         <menu-left></menu-left>
 
-        <div class="col-sm-10">
-          <table class="table">
+        <div class="col-sm-10 custom-table pt-3">
+          <table class="table table-borderless">
             <thead class="thead-dark">
               <tr>
                 <th scope="col">ID</th>
@@ -46,7 +46,7 @@
                 <td>{{ data.ghi_chu }}</td>
                 <td v-if="data.trang_thai == 1">
                   <router-link
-                    class="btn btn-info"
+                    class="btn btn-info text-white custom-text-order"
                     :to="{
                       name: 'OrderSetUserDeadComponent',
                       params: { id: data.id_quan_ly_giao },
@@ -54,13 +54,7 @@
                     >Giao</router-link>
                 </td>
                 <td v-if="data.trang_thai == 2">
-                  <router-link
-                    class="btn btn-warning"
-                    :to="{
-                      name: 'OrderSetUserDeadComponent',
-                      params: { id: data.id_quan_ly_giao },
-                    }"
-                    >Sửa</router-link>
+                  <p class="text-warning">Đang giao</p>
                 </td>
                 <td v-if="data.trang_thai == 3">
                   <p class="text-success">Hoàn thành</p>
@@ -118,7 +112,6 @@ export default {
         .then((result) => {
           this.dataResposed = result.data.data.data;
           this.last_page = result.data.data.last_page
-          console.log(result.data.data);
         })
         .catch((err) => {
           console.log(err.status);
@@ -209,5 +202,8 @@ export default {
 }
 .page-item{
   padding-right: 8px;
+}
+.custom-text-order{
+  width: 11vh;
 }
 </style>

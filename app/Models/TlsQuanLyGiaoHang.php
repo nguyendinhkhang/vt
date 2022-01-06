@@ -63,4 +63,8 @@ class TlsQuanLyGiaoHang extends Model
 
         return $result;
     }
+
+    public static function deleteDonHang($id_quan_ly_giao){
+        DB::table('tls_quan_ly_giao_hangs')->where('id_quan_ly_giao', $id_quan_ly_giao)->delete();
+    }
 }

@@ -5,10 +5,18 @@
       <div class="row">
         <menu-left></menu-left>
 
-        <div class="col-sm-8">
-          <div class="row">
+        <div class="col-sm-10 custom-margin">
+        <div class="pb-2 custom-location-btn">
+            <a
+              class="btn w-25 btn-custom-center"
+              @click="updateDataKho"
+            >
+              Lưu
+            </a>
+          </div>
+          <div class="row custom-data-border">
             <div class="col-sm-6">
-              <div class="form-group">
+              <div class="form-group p-3">
                 <label for="seri">Mã số Seri</label>
                 <input
                   type="text"
@@ -18,7 +26,7 @@
                 />
               </div>
 
-              <div class="form-group">
+              <div class="form-group p-3">
                 <label for="nha_cung_cap">Nhà cung cấp</label>
                 <input
                   type="text"
@@ -28,7 +36,7 @@
                 />
               </div>
 
-              <div class="form-group">
+              <div class="form-group p-3">
                 <label for="gia_nhap">Giá nhập</label>
                 <input
                   type="number"
@@ -38,7 +46,7 @@
                 />
               </div>
 
-              <div class="form-group">
+              <div class="form-group p-3">
                 <label for="so_luong_trong_kho">Tổng số lượng trong kho</label>
                 <input
                   type="number"
@@ -50,7 +58,7 @@
             </div>
 
             <div class="col-sm-6">
-              <div class="form-group">
+              <div class="form-group p-3">
                 <label for="nameProduct">Tên sản phẩm</label>
                 <input
                   type="text"
@@ -60,7 +68,7 @@
                 />
               </div>
 
-              <div class="form-group">
+              <div class="form-group p-3">
                 <label for="kho_hang">Kho hàng</label>
                 <input
                   type="text"
@@ -70,7 +78,7 @@
                 />
               </div>
 
-              <div class="form-group">
+              <div class="form-group p-3">
                 <label for="gia_ban">Giá bán</label>
                 <input
                   type="number"
@@ -82,10 +90,6 @@
             </div>
           </div>
           
-        </div>
-
-        <div class="col-sm-2">
-          <a class="btn btn-success w-100" @click="updateDataKho"> Lưu </a>
         </div>
       </div>
     </div>
@@ -177,9 +181,6 @@ export default {
           console.log("Error: " + err);
         });
     },
-    // dataSelecteds(e) {
-      // this.id_user = e.id;
-    // },
   },
 };
 </script>

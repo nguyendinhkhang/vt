@@ -11,7 +11,8 @@ import OrderSetUserDeadComponent from '../../resources/js/order/OrderSetUserDead
 
 import AnalysisComponent from '../../resources/js/analysis/AnalysisComponent';
 import UserComponent from '../../resources/js/user/UserComponent';
-
+import UserEditComponent from '../../resources/js/user/UserEditComponent';
+import UserCreateComponent from '../../resources/js/user/UserCreateComponent';
 
 const routes = [
     {
@@ -38,6 +39,16 @@ const routes = [
         path: "/user",
         component: UserComponent,
         name: "UserComponent"
+    },
+    {
+        path: "/user/edit-user?id=:id",
+        component: UserEditComponent,
+        name: "UserEditComponent"
+    },
+    {
+        path: "/user/create-user",
+        component: UserCreateComponent,
+        name: "UserCreateComponent"
     },
     {
         path: "/home/edit?id=:id&seri=:seri",

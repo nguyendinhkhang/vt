@@ -22,6 +22,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'role' => rand(1, 3),
             'phone' => '0352062266',
+            'active' => '0',
         ];
     }
 

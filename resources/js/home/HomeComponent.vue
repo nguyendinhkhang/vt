@@ -5,20 +5,25 @@
       <div class="row">
         <menu-left></menu-left>
 
-        <div class="col-sm-8">
-          <table class="table">
+        <div class="col-sm-10 custom-table">
+          <div class="pb-2 custom-location-btn">
+            <router-link class="btn w-25 btn-custom-center" to="/home/tao-kho-hang">
+              Thêm mới
+            </router-link>
+          </div>
+          <table class="table table-borderless">
             <thead class="thead-dark">
               <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Seri</th>
-                <th scope="col">Tên sản phẩm</th>
-                <th scope="col">Nhà cung cấp</th>
-                <th scope="col">Giá nhập</th>
-                <th scope="col">Giá bán</th>
-                <th scope="col">Kho hàng</th>
-                <th scope="col">Tồn kho</th>
-                <th scope="col">Đã xuất</th>
-                <th scope="col">Hành động</th>
+                <th scope="col text-center-custom">ID</th>
+                <th scope="col text-center-custom">Seri</th>
+                <th scope="col text-center-custom">Tên sản phẩm</th>
+                <th scope="col text-center-custom">Nhà cung cấp</th>
+                <th scope="col text-center-custom">Giá nhập</th>
+                <th scope="col text-center-custom">Giá bán</th>
+                <th scope="col text-center-custom">Kho hàng</th>
+                <th scope="col text-center-custom">Tồn kho</th>
+                <th scope="col text-center-custom">Đã xuất</th>
+                <th scope="col text-center-custom">Hành động</th>
               </tr>
             </thead>
             <tbody>
@@ -39,11 +44,11 @@
                 </td>
 
                 <td v-if="data.so_luong_da_xuat > 0" @click="getDataXuat">
-                    <router-link
-                    class="text-danger text-decoration-none "
+                  <router-link
+                    class="text-danger text-decoration-none"
                     :to="{
                       name: 'HomeDetailsOrderExportComponent',
-                      params: { id: data.id_kho_hang},
+                      params: { id: data.id_kho_hang },
                     }"
                     >{{ data.so_luong_da_xuat }}</router-link
                   >
@@ -68,12 +73,17 @@
                   >
 
                   <router-link
-                    class="btn btn-info"
+                    class="btn btn-info text-white"
                     :to="{
                       name: 'HomeExportComponent',
-                      params: { id: data.id_kho_hang, tong: data.so_luong_trong_kho, daxuat: data.so_luong_da_xuat },
+                      params: {
+                        id: data.id_kho_hang,
+                        tong: data.so_luong_trong_kho,
+                        daxuat: data.so_luong_da_xuat,
+                      },
                     }"
-                    >Xuất kho</router-link>
+                    >Xuất kho</router-link
+                  >
                 </td>
               </tr>
             </tbody>
@@ -120,9 +130,6 @@
         </div>
 
         <!-- <menu-right></menu-right> -->
-        <div class="col-sm-2">
-            <router-link class="btn btn-success w-100" to="/home/tao-kho-hang"> Thêm mới </router-link>
-        </div>
       </div>
     </div>
   </div>
@@ -146,14 +153,14 @@ export default {
       // this.name   = window.atob(localStorage.getItem('_name'));
       // this.role   =  _token.slice(0,1);
       // this.token  =  _token.slice(1,_token.length);
-        console.log(_token);
+      console.log(_token);
       await axios.get("sanctum/csrf-cookie");
       await axios
         .get("/api/get-data-ware-house")
         .then((result) => {
           this.dataResposed = result.data.data.data;
 
-        //   console.log(_token);
+          //   console.log(_token);
 
           this.last_page = result.data.data.last_page;
         })
@@ -258,9 +265,9 @@ export default {
       }
     },
 
-    getDataXuat(){
-        console.log("hi");
-    }
+    getDataXuat() {
+      console.log("hi");
+    },
   },
 };
 </script>
@@ -272,5 +279,41 @@ export default {
 .dropdown-css {
   width: 85%;
   margin-left: inherit;
+}
+.custom-table {
+  margin-left: 7vh;
+}
+
+table,
+th,
+td {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  background-color: white;
+  border-radius: 25px;
+}
+th,
+td {
+  background-color: #96d4d4;
+}
+
+.btn-custom-center{
+  position: relative;
+  background-color: white;
+  color: #ea0a2a;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  margin-left: 38.5%;
+  z-index: 1;
+  font-weight: bold;
+}
+.btn-custom-center:hover{
+  color: #ea0a2a;
+  z-index: 1;
+}
+.custom-location-btn{
+  margin-top: -25px;
+  z-index: 1;
+}
+.text-center-custom{
+  text-align: center !important;
 }
 </style>

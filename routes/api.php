@@ -22,7 +22,12 @@ Route::post('/login_system', [AuthController::class, 'login'])->name('Login-Syst
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/get-name-usr/{role}', [UsersController::class, 'getUser'])->name('Get-Name-Usr');
-
+    Route::get('/get-all-user', [UsersController::class, 'getInfoUser'])->name('Get-All-Data');
+    Route::get('/get-user/{id}', [UsersController::class, 'getInfoUserWhenID'])->name('Get-User-Data');
+    Route::post('/update-data-user', [UsersController::class, 'updateDataUserWhenID'])->name('Update-Data-User');
+    Route::post('/delete-data-user', [UsersController::class, 'deleteDataUserWhenID'])->name('Delete-Data-User');
+    Route::post('/create-data-user', [UsersController::class, 'createDataUser'])->name('Create-Data-User');
+    
     Route::get('/get-data-ware-house', [WareHouseController::class, 'getData'])->name('Get-Data');
     Route::get('/get-data-ware-house/{id}/{seri}', [WareHouseController::class, 'getDataWhenID'])->name('Get-Data-When-ID');
     Route::post('/update-data-ware-house', [WareHouseController::class, 'updateDataWhenID'])->name('Update-Data');
@@ -35,6 +40,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/get-data-order/{id}', [OrderController::class, 'getDataWhenID'])->name('Get-Order-When-ID');
     Route::post('/update-data-order', [OrderController::class, 'updateDataUserDeal'])->name('Update-Data-User');
     Route::post('/create-data-order', [OrderController::class, 'createDonHang'])->name('Create-Data-User');
-    
     Route::get('/get-thong-ke-don-hang/{trang_thai}/{date}/{compare}', [OrderController::class, 'dataThongKe'])->name('data-thong-ke');
+
+    //Thu Hoi
+    Route::post('/delete-data-order', [OrderController::class, 'deleteDonHang'])->name('Delete-Data-User');
 });

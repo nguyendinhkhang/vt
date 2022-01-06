@@ -4,12 +4,26 @@
     <div class="container-fluid">
       <div class="row">
         <menu-left></menu-left>
+        <!-- <div class="col-sm-2">
+          <a class="btn btn-success w-100" @click="createGiaoHang"> Lưu </a>
+        </div> -->
 
-        <div class="col-sm-8">
-          <div class="row">
+
+
+        <div class="col-sm-10 custom-margin">
+            <div class="pb-2 custom-location-btn">
+            <a
+              class="btn w-25 btn-custom-center"
+              @click="createGiaoHang"
+            >
+              Lưu
+            </a>
+          </div>
+
+          <div class="row custom-data-border">
             <div class="col-sm-6">
               <!-- dia chi -->
-              <div class="form-group">
+              <div class="form-group p-3">
                 <label for="dia_chi_giao_hang">Địa chỉ giao hàng</label>
                 <input
                   type="text"
@@ -20,7 +34,7 @@
                 />
               </div>
               <!-- So luong -->
-              <div class="form-group">
+              <div class="form-group p-3">
                 <label for="so_luong">Số lượng xuất kho</label>
                 <input
                   type="number"
@@ -31,7 +45,7 @@
                 />
               </div>
               <!-- user dam nhiem -->
-              <div class="form-group">
+              <div class="form-group p-3">
                 <label for="so_luong_trong_kho">Người chịu trách nhiệm</label>
                 <Dropdown
                   class="form-control dropdown-css w-100"
@@ -48,7 +62,7 @@
 
             <div class="col-sm-6">
               <!-- Ten khach hang -->
-              <div class="form-group">
+              <div class="form-group p-3">
                 <label for="ten_khach_hang">Tên khách hàng</label>
                 <input
                   type="text"
@@ -60,7 +74,7 @@
               </div>
 
               <!-- So dien thoai -->
-              <div class="form-group">
+              <div class="form-group p-3">
                 <label for="so_dien_thoai">Số điện thoại</label>
                 <input
                   type="number"
@@ -72,10 +86,6 @@
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="col-sm-2">
-          <a class="btn btn-success w-100" @click="createGiaoHang"> Lưu </a>
         </div>
       </div>
     </div>
@@ -153,7 +163,7 @@ export default {
                 }
               })
               .catch((err) => {
-                calert("Có vấn đề đã xảy ra, xin vui lòng thử lại sau.");
+                  alert("Có vấn đề đã xảy ra, xin vui lòng thử lại sau.");
               });
           } else {
             alert("Có vấn đề đã xảy ra, xin vui lòng thử lại sau.");

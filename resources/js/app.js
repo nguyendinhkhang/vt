@@ -7,10 +7,13 @@ import index from "../js/index";
 import NavComponent from "../js/share/NavComponent";
 import MenuLeftComponent from "../js/share/MenuLeftComponent";
 import MenuRightComponent from "../js/share/MenuRightComponent";
+import { ValidationProvider } from 'vee-validate';
 
 Vue.component("nav-component", NavComponent);
 Vue.component("menu-left", MenuLeftComponent);
 Vue.component("menu-right", MenuRightComponent);
+Vue.component('ValidationProvider', ValidationProvider);
+
 window.Vue = require('vue').default;
 
 window.axios.interceptors.response.use(
