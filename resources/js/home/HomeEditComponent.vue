@@ -171,37 +171,37 @@ export default {
   },
   methods: {
     async updateDataKho() {
-      this.err = false;
-      if(this.ma_so_seri == "" || this.ma_so_seri == null || this.ma_so_seri.length > 255){
-          this.errMa_so_seri = "Vui lòng nhập seri hoặc nhập đúng định dạng"
-          this.err = true
-      }
-      if(this.ten_san_pham == "" || this.ten_san_pham == null || this.ten_san_pham.length > 255){
-        this.errTen_san_pham = "Vui lòng nhập tên sản phẩm hoặc nhập đúng định dạng"
-        this.err = true
-      }
-      if(this.nha_cung_cap == "" || this.nha_cung_cap == null || this.nha_cung_cap.length > 255){
-        this.errNha_cung_cap = "Vui lòng nhập nhà cung cấp hoặc nhập đúng định dạng"
-        this.err = true
-      }
-      if(this.gia_nhap == ""|| this.gia_nhap == null){
-        this.errGia_nhap = "Vui lòng nhập giá nhập hoặc nhập đúng định dạng"
-        this.err = true
-      }
-      if(this.gia_ban == ""|| this.gia_ban == null){
-        this.errGia_ban = "Vui lòng nhập giá bán hoặc nhập đúng định dạng"
-        this.err = true
-      }
-      if(this.kho_hang == "" || this.gia_ban == null){
-        this.errKho_hang = "Vui lòng nhập kho hàng hoặc nhập đúng định dạng"
-        this.err = true
-      }
-      if(this.so_luong_trong_kho == "" || this.so_luong_trong_kho == null){
-        this.errSo_luong_trong_kho = "Vui lòng nhập số lượng hoặc đúng nhập định dạng"
-        this.err = true
-      }
+      // this.err = false;
+      // if(this.ma_so_seri == "" || this.ma_so_seri == null || this.ma_so_seri.length > 255){
+      //     this.errMa_so_seri = "Vui lòng nhập seri hoặc nhập đúng định dạng"
+      //     this.err = true
+      // }
+      // if(this.ten_san_pham == "" || this.ten_san_pham == null || this.ten_san_pham.length > 255){
+      //   this.errTen_san_pham = "Vui lòng nhập tên sản phẩm hoặc nhập đúng định dạng"
+      //   this.err = true
+      // }
+      // if(this.nha_cung_cap == "" || this.nha_cung_cap == null || this.nha_cung_cap.length > 255){
+      //   this.errNha_cung_cap = "Vui lòng nhập nhà cung cấp hoặc nhập đúng định dạng"
+      //   this.err = true
+      // }
+      // if(this.gia_nhap == ""|| this.gia_nhap == null){
+      //   this.errGia_nhap = "Vui lòng nhập giá nhập hoặc nhập đúng định dạng"
+      //   this.err = true
+      // }
+      // if(this.gia_ban == ""|| this.gia_ban == null){
+      //   this.errGia_ban = "Vui lòng nhập giá bán hoặc nhập đúng định dạng"
+      //   this.err = true
+      // }
+      // if(this.kho_hang == "" || this.gia_ban == null){
+      //   this.errKho_hang = "Vui lòng nhập kho hàng hoặc nhập đúng định dạng"
+      //   this.err = true
+      // }
+      // if(this.so_luong_trong_kho == "" || this.so_luong_trong_kho == null){
+      //   this.errSo_luong_trong_kho = "Vui lòng nhập số lượng hoặc đúng nhập định dạng"
+      //   this.err = true
+      // }
 
-      if(!this.err){
+      // if(!this.err){
         await axios
           .post("/api/update-data-ware-house", {
             id: this.id_kho_hang,
@@ -224,7 +224,7 @@ export default {
           .catch((err) => {
             console.log("Error: " + err);
           });
-      }
+      // }
     },
   },
 };
