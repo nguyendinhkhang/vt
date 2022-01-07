@@ -35,10 +35,18 @@
                 <td>{{ data.so_luong }}</td>
                 <td>{{ data.gia_ban }}</td>
                 <td>{{ data.ngay_giao }}</td>
-                  <td v-if="data.trang_thai == 1"><p class="text-danger">Chưa được giao</p></td>
-                  <td v-else-if="data.trang_thai == 2"><p class="text-warning">Đang giao giao</p></td>
-                  <td v-else-if="data.trang_thai == 3"><p class="text-success">Đã giao</p></td>
-                  <td v-else-if="data.trang_thai == 4"><p class="text-success">Trả về</p></td>
+                <td v-if="data.trang_thai == 1">
+                  <p class="text-danger">Chưa được giao</p>
+                </td>
+                <td v-else-if="data.trang_thai == 2">
+                  <p class="text-warning">Đang giao giao</p>
+                </td>
+                <td v-else-if="data.trang_thai == 3">
+                  <p class="text-success">Đã giao</p>
+                </td>
+                <td v-else-if="data.trang_thai == 4">
+                  <p class="text-success">Trả về</p>
+                </td>
                 <td>{{ data.name }}</td>
                 <td>{{ data.kho_hang }}</td>
                 <td>{{ data.ten_khach_hang }}</td>
@@ -51,7 +59,8 @@
                       name: 'OrderSetUserDeadComponent',
                       params: { id: data.id_quan_ly_giao },
                     }"
-                    >Giao</router-link>
+                    >Giao</router-link
+                  >
                 </td>
                 <td v-if="data.trang_thai == 2">
                   <p class="text-warning">Đang giao</p>
@@ -62,27 +71,42 @@
               </tr>
             </tbody>
           </table>
-  
+
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
-              <li class="page-item"><p class="page-custom">{{first_page}}/{{last_page}}</p></li>
-              
               <li class="page-item">
-                <a class="page-link"  @click="onChangePrevPage" aria-label="Previous">
+                <p class="page-custom">{{ first_page }}/{{ last_page }}</p>
+              </li>
+
+              <li class="page-item">
+                <a
+                  class="page-link"
+                  @click="onChangePrevPage"
+                  aria-label="Previous"
+                >
                   <span aria-hidden="true">&laquo;</span>
                   <span class="sr-only">Trở lại</span>
                 </a>
               </li>
 
               <li class="page-item">
-                <a class="page-link" @click="onChangeNextPage" aria-label="Next">
+                <a
+                  class="page-link"
+                  @click="onChangeNextPage"
+                  aria-label="Next"
+                >
                   <span class="sr-only">Tiếp theo</span>
                   <span aria-hidden="true">&raquo;</span>
                 </a>
               </li>
 
               <li class="page-item">
-                <input class="set-input" type="number" @change="onChangePageInput" v-model="change_page"/>
+                <input
+                  class="set-input"
+                  type="number"
+                  @change="onChangePageInput"
+                  v-model="change_page"
+                />
               </li>
             </ul>
           </nav>
@@ -100,12 +124,29 @@ export default {
       first_page: 1,
       last_page: null,
       change_page: 1,
+      id_user: null,
+      role: null,
     };
   },
   async created() {
     if (localStorage.getItem("_token") == null) {
       window.location.href = "/";
     } else {
+      this.role = window.atob(localStorage.getItem("_token")).slice(0, 1);
+      if(this.role == 2){
+        this.id_user = window.atob(localStorage.getItem("_dataLogin"));
+        console.log(this.id_user);
+        // Select theo ID
+
+
+
+
+
+
+
+
+
+      }else{
       await axios.get("sanctum/csrf-cookie");
       await axios
         .get("/api/get-data-order")
@@ -116,6 +157,7 @@ export default {
         .catch((err) => {
           console.log(err.status);
         });
+      }
     }
   },
   methods: {
@@ -184,26 +226,26 @@ export default {
 </script>
 
 <style>
-.set-input{
+.set-input {
   width: 50px;
   height: 37px;
 }
-.page-link{
+.page-link {
   height: 37px;
   color: red;
 }
-.page-link:hover{
+.page-link:hover {
   color: black;
 }
-.page-custom{
+.page-custom {
   height: 37px;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
-.page-item{
+.page-item {
   padding-right: 8px;
 }
-.custom-text-order{
+.custom-text-order {
   width: 11vh;
 }
 </style>

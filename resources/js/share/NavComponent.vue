@@ -23,6 +23,7 @@ export default {
   data() {
     return {
       name: null,
+      role: null,
     };
   },
   created() {

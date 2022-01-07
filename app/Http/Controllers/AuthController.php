@@ -39,6 +39,7 @@ class AuthController extends Controller
                 'access_token' => $tokenResult,
                 'name' => $user->name,
                 'role' => $user->role,
+                'id' => $user->id,
             ]);
         } catch (\Exception $error) {
             return response()->json([

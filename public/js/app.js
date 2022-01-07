@@ -5629,6 +5629,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5654,30 +5657,41 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               }
 
               window.location.href = "/";
-              _context.next = 10;
+              _context.next = 16;
               break;
 
             case 4:
-              _token = window.atob(localStorage.getItem("_token")); // this.name   = window.atob(localStorage.getItem('_name'));
-              // this.role   =  _token.slice(0,1);
-              // this.token  =  _token.slice(1,_token.length);
-
+              _token = window.atob(localStorage.getItem("_token"));
+              _this.role = window.atob(localStorage.getItem("_token")).slice(0, 1);
               console.log(_token);
-              _context.next = 8;
+              console.log(_this.role);
+
+              if (!(_this.role == 2)) {
+                _context.next = 12;
+                break;
+              }
+
+              _this.$router.push({
+                path: '/order'
+              });
+
+              _context.next = 16;
+              break;
+
+            case 12:
+              _context.next = 14;
               return axios.get("sanctum/csrf-cookie");
 
-            case 8:
-              _context.next = 10;
+            case 14:
+              _context.next = 16;
               return axios.get("/api/get-data-ware-house").then(function (result) {
-                _this.dataResposed = result.data.data.data; //   console.log(_token);
-
-                //   console.log(_token);
+                _this.dataResposed = result.data.data.data;
                 _this.last_page = result.data.data.last_page;
               })["catch"](function (err) {
                 console.log(err.status);
               });
 
-            case 10:
+            case 16:
             case "end":
               return _context.stop();
           }
@@ -6789,6 +6803,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -6800,7 +6819,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       id_kho_hang: null,
       so_luong_trong_kho: null,
       so_luong_da_xuat: null,
-      options: []
+      options: [],
+      errDia_chi_giao_hang: null,
+      errTen_khach_hang: null,
+      errSo_dien_thoai: null,
+      errSo_luong: null,
+      errUser_dam_nhiem: null,
+      err: false
     };
   },
   created: function created() {
@@ -6836,59 +6861,103 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var tong, so_da_xuat;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                tong = _this2.so_luong_trong_kho - _this2.so_luong;
+                _this2.err = false;
 
-                if (_this2.so_luong > _this2.so_luong_trong_kho) {
-                  _this2.so_luong = _this2.so_luong_trong_kho;
-                  tong = 0;
-                } else if (_this2.so_luong < 0) {
-                  _this2.so_luong = 1;
-                  tong = _this2.so_luong_trong_kho - _this2.so_luong;
+                if (_this2.dia_chi_giao_hang == "" || _this2.dia_chi_giao_hang == null || _this2.dia_chi_giao_hang.length > 255) {
+                  _this2.errDia_chi_giao_hang = "Vui lòng nhập địa chỉ hoặc nhập đúng định dạng";
+                  _this2.err = true;
+                } else {
+                  _this2.errDia_chi_giao_hang = "";
+                  _this2.err = false;
                 }
 
-                so_da_xuat = parseInt(_this2.so_luong_da_xuat) + parseInt(_this2.so_luong);
-                _context2.next = 5;
-                return axios.post("/api/create-data-order", {
-                  dia_chi_giao_hang: _this2.dia_chi_giao_hang,
-                  so_luong: _this2.so_luong,
-                  ten_khach_hang: _this2.ten_khach_hang,
-                  user_dam_nhiem: _this2.user_dam_nhiem,
-                  so_dien_thoai: _this2.so_dien_thoai,
-                  id_kho_hang: _this2.id_kho_hang
-                }).then(function (result) {
-                  if (result.data.status_code == 200) {
-                    axios.post("/api/update-so-luong-order", {
-                      id_kho_hang: _this2.id_kho_hang,
-                      so_luong_trong_kho: tong,
-                      so_luong_da_xuat: so_da_xuat
-                    }).then(function (result) {
-                      if (result.data.status_code == 200) {
-                        alert("Chúc mừng bạn đã tạo đơn hàng thành công.");
+                if (_this2.so_luong == "" || _this2.so_luong == null) {
+                  _this2.errSo_luong = "Vui lòng nhập số lượng hoặc nhập đúng định dạng";
+                  _this2.err = true;
+                } else {
+                  _this2.errSo_luong = "";
+                  _this2.err = false;
+                }
 
-                        _this2.$router.push({
-                          path: "/home"
-                        });
-                      } else {
-                        alert("Có vấn đề đã xảy ra, xin vui lòng thử lại sau.");
-                      }
-                    })["catch"](function (err) {
-                      alert("Có vấn đề đã xảy ra, xin vui lòng thử lại sau.");
-                    });
-                  } else {
-                    alert("Có vấn đề đã xảy ra, xin vui lòng thử lại sau.");
-                    return;
-                  }
-                })["catch"](function (err) {
-                  alert("Có vấn đề đã xảy ra, xin vui lòng thử lại sau." + err);
-                  return;
-                });
+                if (_this2.ten_khach_hang == "" || _this2.ten_khach_hang == null || _this2.ten_khach_hang.length > 255) {
+                  _this2.errTen_khach_hang = "Vui lòng nhập tên khách hàng hoặc nhập đúng định dạng";
+                  _this2.err = true;
+                } else {
+                  _this2.errTen_khach_hang = "";
+                  _this2.err = false;
+                }
 
-              case 5:
+                if (_this2.so_dien_thoai == "" || _this2.so_dien_thoai == null) {
+                  _this2.errSo_dien_thoai = "Vui lòng nhập số điện thoại hoặc nhập đúng định dạng";
+                  _this2.err = true;
+                } else {
+                  _this2.errSo_dien_thoai = "";
+                  _this2.err = false;
+                }
+
+                if (_this2.user_dam_nhiem == "" || _this2.user_dam_nhiem == null) {
+                  _this2.errUser_dam_nhiem = "Vui lòng người đảm nhiệm";
+                  _this2.err = true;
+                } else {
+                  _this2.errUser_dam_nhiem = "";
+                  _this2.err = false;
+                }
+
+                if (!_this2.err) {
+                  console.log("?");
+                } // var tong = this.so_luong_trong_kho - this.so_luong;
+                // if (this.so_luong > this.so_luong_trong_kho) {
+                //   this.so_luong = this.so_luong_trong_kho;
+                //   tong = 0;
+                // } else if (this.so_luong < 0) {
+                //   this.so_luong = 1;
+                //   tong = this.so_luong_trong_kho - this.so_luong;
+                // }
+                // var so_da_xuat = parseInt(this.so_luong_da_xuat) + parseInt(this.so_luong);
+                // await axios
+                //   .post("/api/create-data-order", {
+                //     dia_chi_giao_hang: this.dia_chi_giao_hang,
+                //     so_luong: this.so_luong,
+                //     ten_khach_hang: this.ten_khach_hang,
+                //     user_dam_nhiem: this.user_dam_nhiem,
+                //     so_dien_thoai: this.so_dien_thoai,
+                //     id_kho_hang: this.id_kho_hang,
+                //   })
+                //   .then((result) => {
+                //     if (result.data.status_code == 200) {
+                //       axios
+                //         .post("/api/update-so-luong-order", {
+                //           id_kho_hang: this.id_kho_hang,
+                //           so_luong_trong_kho: tong,
+                //           so_luong_da_xuat: so_da_xuat,
+                //         })
+                //         .then((result) => {
+                //           if (result.data.status_code == 200) {
+                //             alert("Chúc mừng bạn đã tạo đơn hàng thành công.");
+                //             this.$router.push({ path: "/home" });
+                //           } else {
+                //             alert("Có vấn đề đã xảy ra, xin vui lòng thử lại sau.");
+                //           }
+                //         })
+                //         .catch((err) => {
+                //             alert("Có vấn đề đã xảy ra, xin vui lòng thử lại sau.");
+                //         });
+                //     } else {
+                //       alert("Có vấn đề đã xảy ra, xin vui lòng thử lại sau.");
+                //       return;
+                //     }
+                //   })
+                //   .catch((err) => {
+                //     alert("Có vấn đề đã xảy ra, xin vui lòng thử lại sau." + err);
+                //     return;
+                //   });
+
+
+              case 7:
               case "end":
                 return _context2.stop();
             }
@@ -7020,6 +7089,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                     localStorage.setItem("_token", window.btoa(result.data.role + result.data.access_token));
                     localStorage.setItem("_name", window.btoa(result.data.name));
+                    localStorage.setItem("_dataLogin", window.btoa(result.data.id));
 
                     _this.$router.push({
                       path: "/home"
@@ -7169,13 +7239,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       dataResposed: null,
       first_page: 1,
       last_page: null,
-      change_page: 1
+      change_page: 1,
+      id_user: null,
+      role: null
     };
   },
   created: function created() {
@@ -7192,15 +7288,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               }
 
               window.location.href = "/";
-              _context.next = 8;
+              _context.next = 14;
               break;
 
             case 4:
-              _context.next = 6;
+              _this.role = window.atob(localStorage.getItem("_token")).slice(0, 1);
+
+              if (!(_this.role == 2)) {
+                _context.next = 10;
+                break;
+              }
+
+              _this.id_user = window.atob(localStorage.getItem("_dataLogin"));
+              console.log(_this.id_user); // Select theo ID
+
+              _context.next = 14;
+              break;
+
+            case 10:
+              _context.next = 12;
               return axios.get("sanctum/csrf-cookie");
 
-            case 6:
-              _context.next = 8;
+            case 12:
+              _context.next = 14;
               return axios.get("/api/get-data-order").then(function (result) {
                 _this.dataResposed = result.data.data.data;
                 _this.last_page = result.data.data.last_page;
@@ -7208,7 +7318,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 console.log(err.status);
               });
 
-            case 8:
+            case 14:
             case "end":
               return _context.stop();
           }
@@ -7522,6 +7632,90 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/share/MenuLeftComponent.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/share/MenuLeftComponent.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      name: null,
+      role: null
+    };
+  },
+  created: function created() {
+    this.role = window.atob(localStorage.getItem("_token")).slice(0, 1);
+    console.log(this.role);
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/share/NavComponent.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/share/NavComponent.vue?vue&type=script&lang=js& ***!
@@ -7564,7 +7758,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      name: null
+      name: null,
+      role: null
     };
   },
   created: function created() {
@@ -13531,7 +13726,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.dropdown .dropdown-input[data-v-6149e08a] {\n  min-width: 40px;\n}\n.dropdown-css {\n  width: 85%;\n  margin-left: inherit;\n}\n.custom-table {\n  margin-left: 7vh;\n}\ntable,\nth,\ntd {\n  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;\n  background-color: white;\n  border-radius: 25px;\n}\nth,\ntd {\n  background-color: #96d4d4;\n}\n.btn-custom-center{\n  position: relative;\n  background-color: white;\n  color: #ea0a2a;\n  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;\n  margin-left: 38.5%;\n  z-index: 1;\n  font-weight: bold;\n}\n.btn-custom-center:hover{\n  color: #ea0a2a;\n  z-index: 1;\n}\n.custom-location-btn{\n  margin-top: -25px;\n  z-index: 1;\n}\n.text-center-custom{\n  text-align: center !important;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.dropdown .dropdown-input[data-v-6149e08a] {\n  min-width: 40px;\n}\n.dropdown-css {\n  width: 85%;\n  margin-left: inherit;\n}\n.custom-table {\n  margin-left: 7vh;\n}\ntable,\nth,\ntd {\n  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;\n  background-color: white;\n  border-radius: 25px;\n}\nth,\ntd {\n  background-color: #96d4d4;\n}\n.btn-custom-center {\n  position: relative;\n  background-color: white;\n  color: #ea0a2a;\n  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;\n  margin-left: 38.5%;\n  z-index: 1;\n  font-weight: bold;\n}\n.btn-custom-center:hover {\n  color: #ea0a2a;\n  z-index: 1;\n}\n.custom-location-btn {\n  margin-top: -25px;\n  z-index: 1;\n}\n.text-center-custom {\n  text-align: center !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -13627,7 +13822,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.form-login {\n  width: 100%;\n  position: static;\n  height: 1000px;\n  /* background-image: url(\"https://wallpaperaccess.com/full/2909136.jpg\"); */\n  background-image: url(\"https://nelsoncourse.concept4hosting.co.uk/casestudy/606302553591b-HNC-Sustainable-Construction-Design.jpg\");\n  background-repeat: no-repeat;\n  position: fixed;\n}\n.custom-row-login {\n  margin-top: 10%;\n  border-radius: 25px;\n  background-color: white;\n  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;\n}\n.custom-logo-login {\n  display: flex;\n  justify-content: center;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.form-login {\n  width: 100%;\n  position: static;\n  height: 1000px;\n  background-image: url(\"https://nelsoncourse.concept4hosting.co.uk/casestudy/606302553591b-HNC-Sustainable-Construction-Design.jpg\");\n  background-repeat: no-repeat;\n  position: fixed;\n}\n.custom-row-login {\n  margin-top: 10%;\n  border-radius: 25px;\n  background-color: white;\n  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;\n}\n.custom-logo-login {\n  display: flex;\n  justify-content: center;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -13651,7 +13846,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.set-input{\n  width: 50px;\n  height: 37px;\n}\n.page-link{\n  height: 37px;\n  color: red;\n}\n.page-link:hover{\n  color: black;\n}\n.page-custom{\n  height: 37px;\n  margin-top: 0.5rem;\n  margin-bottom: 0.5rem;\n}\n.page-item{\n  padding-right: 8px;\n}\n.custom-text-order{\n  width: 11vh;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.set-input {\n  width: 50px;\n  height: 37px;\n}\n.page-link {\n  height: 37px;\n  color: red;\n}\n.page-link:hover {\n  color: black;\n}\n.page-custom {\n  height: 37px;\n  margin-top: 0.5rem;\n  margin-bottom: 0.5rem;\n}\n.page-item {\n  padding-right: 8px;\n}\n.custom-text-order {\n  width: 11vh;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -35065,17 +35260,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _MenuLeftComponent_vue_vue_type_template_id_2b3761b9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MenuLeftComponent.vue?vue&type=template&id=2b3761b9& */ "./resources/js/share/MenuLeftComponent.vue?vue&type=template&id=2b3761b9&");
-/* harmony import */ var _MenuLeftComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MenuLeftComponent.vue?vue&type=style&index=0&lang=css& */ "./resources/js/share/MenuLeftComponent.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _MenuLeftComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MenuLeftComponent.vue?vue&type=script&lang=js& */ "./resources/js/share/MenuLeftComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _MenuLeftComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MenuLeftComponent.vue?vue&type=style&index=0&lang=css& */ "./resources/js/share/MenuLeftComponent.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var script = {}
+
+
 ;
 
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  script,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _MenuLeftComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _MenuLeftComponent_vue_vue_type_template_id_2b3761b9___WEBPACK_IMPORTED_MODULE_0__.render,
   _MenuLeftComponent_vue_vue_type_template_id_2b3761b9___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -35432,6 +35629,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderSetUserDeadComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./OrderSetUserDeadComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/order/OrderSetUserDeadComponent.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderSetUserDeadComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/share/MenuLeftComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/share/MenuLeftComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuLeftComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MenuLeftComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/share/MenuLeftComponent.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuLeftComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -37325,6 +37538,15 @@ var render = function () {
                       _vm._v("Địa chỉ giao hàng"),
                     ]),
                     _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "text-danger",
+                        staticStyle: { "padding-left": "5px" },
+                      },
+                      [_vm._v(_vm._s(_vm.errDia_chi_giao_hang))]
+                    ),
+                    _vm._v(" "),
                     _c("input", {
                       directives: [
                         {
@@ -37356,6 +37578,15 @@ var render = function () {
                     _c("label", { attrs: { for: "so_luong" } }, [
                       _vm._v("Số lượng xuất kho"),
                     ]),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "text-danger",
+                        staticStyle: { "padding-left": "5px" },
+                      },
+                      [_vm._v(_vm._s(_vm.errSo_luong))]
+                    ),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -37392,6 +37623,15 @@ var render = function () {
                         _vm._v("Người chịu trách nhiệm"),
                       ]),
                       _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          staticClass: "text-danger",
+                          staticStyle: { "padding-left": "5px" },
+                        },
+                        [_vm._v(_vm._s(_vm.errUser_dam_nhiem))]
+                      ),
+                      _vm._v(" "),
                       _c("Dropdown", {
                         staticClass: "form-control dropdown-css w-100",
                         attrs: {
@@ -37413,6 +37653,15 @@ var render = function () {
                     _c("label", { attrs: { for: "ten_khach_hang" } }, [
                       _vm._v("Tên khách hàng"),
                     ]),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "text-danger",
+                        staticStyle: { "padding-left": "5px" },
+                      },
+                      [_vm._v(_vm._s(_vm.errTen_khach_hang))]
+                    ),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -37445,6 +37694,15 @@ var render = function () {
                     _c("label", { attrs: { for: "so_dien_thoai" } }, [
                       _vm._v("Số điện thoại"),
                     ]),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "text-danger",
+                        staticStyle: { "padding-left": "5px" },
+                      },
+                      [_vm._v(_vm._s(_vm.errSo_dien_thoai))]
+                    ),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -38221,32 +38479,37 @@ var render = function () {
         _c("ul", { staticClass: "nav flex-column pmd-sidebar-nav" }, [
           _vm._m(0),
           _vm._v(" "),
-          _c(
-            "li",
-            { staticClass: "nav-item nav-custom li-custom-top" },
-            [
-              _c(
-                "router-link",
-                { staticClass: "nav-link set-text", attrs: { to: "/home" } },
+          this.role != 2
+            ? _c(
+                "li",
+                { staticClass: "nav-item nav-custom li-custom-top" },
                 [
-                  _c("img", {
-                    attrs: {
-                      src: "https://i.ibb.co/QX2LxB5/kho-2.png",
-                      width: "52px",
-                      height: "52px",
-                    },
-                  }),
-                  _vm._v(" "),
                   _c(
-                    "span",
-                    { staticClass: "media-body custom-text-nav-left" },
-                    [_vm._v("Kho hàng")]
+                    "router-link",
+                    {
+                      staticClass: "nav-link set-text",
+                      attrs: { to: "/home" },
+                    },
+                    [
+                      _c("img", {
+                        attrs: {
+                          src: "https://i.ibb.co/QX2LxB5/kho-2.png",
+                          width: "52px",
+                          height: "52px",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        { staticClass: "media-body custom-text-nav-left" },
+                        [_vm._v("Kho hàng")]
+                      ),
+                    ]
                   ),
-                ]
-              ),
-            ],
-            1
-          ),
+                ],
+                1
+              )
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "li",
@@ -38305,32 +38568,37 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          _c(
-            "li",
-            { staticClass: "nav-item nav-custom li-custom-top" },
-            [
-              _c(
-                "router-link",
-                { staticClass: "nav-link set-text", attrs: { to: "/user" } },
+          this.role != 2
+            ? _c(
+                "li",
+                { staticClass: "nav-item nav-custom li-custom-top" },
                 [
-                  _c("img", {
-                    attrs: {
-                      src: "https://i.ibb.co/JCfw3LY/User.png",
-                      width: "52px",
-                      height: "52px",
-                    },
-                  }),
-                  _vm._v(" "),
                   _c(
-                    "span",
-                    { staticClass: "media-body custom-text-nav-left" },
-                    [_vm._v(" Quản trị")]
+                    "router-link",
+                    {
+                      staticClass: "nav-link set-text",
+                      attrs: { to: "/user" },
+                    },
+                    [
+                      _c("img", {
+                        attrs: {
+                          src: "https://i.ibb.co/JCfw3LY/User.png",
+                          width: "52px",
+                          height: "52px",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        { staticClass: "media-body custom-text-nav-left" },
+                        [_vm._v(" Quản trị")]
+                      ),
+                    ]
                   ),
-                ]
-              ),
-            ],
-            1
-          ),
+                ],
+                1
+              )
+            : _vm._e(),
         ]),
       ]
     ),

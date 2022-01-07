@@ -86,6 +86,7 @@ export default {
                   window.btoa(result.data.role + result.data.access_token)
                 );
                 localStorage.setItem("_name", window.btoa(result.data.name));
+                localStorage.setItem("_dataLogin", window.btoa(result.data.id));
 
                 this.$router.push({ path: "/home" });
               } else {
@@ -112,7 +113,6 @@ export default {
   width: 100%;
   position: static;
   height: 1000px;
-  /* background-image: url("https://wallpaperaccess.com/full/2909136.jpg"); */
   background-image: url("https://nelsoncourse.concept4hosting.co.uk/casestudy/606302553591b-HNC-Sustainable-Construction-Design.jpg");
   background-repeat: no-repeat;
   position: fixed;

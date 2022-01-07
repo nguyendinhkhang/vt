@@ -7,7 +7,10 @@
 
         <div class="col-sm-10 custom-table">
           <div class="pb-2 custom-location-btn">
-            <router-link class="btn w-25 btn-custom-center" to="/home/tao-kho-hang">
+            <router-link
+              class="btn w-25 btn-custom-center"
+              to="/home/tao-kho-hang"
+            >
               Thêm mới
             </router-link>
           </div>
@@ -150,23 +153,23 @@ export default {
       window.location.href = "/";
     } else {
       var _token = window.atob(localStorage.getItem("_token"));
-      // this.name   = window.atob(localStorage.getItem('_name'));
-      // this.role   =  _token.slice(0,1);
-      // this.token  =  _token.slice(1,_token.length);
+      this.role = window.atob(localStorage.getItem("_token")).slice(0, 1);
       console.log(_token);
-      await axios.get("sanctum/csrf-cookie");
-      await axios
-        .get("/api/get-data-ware-house")
-        .then((result) => {
-          this.dataResposed = result.data.data.data;
-
-          //   console.log(_token);
-
-          this.last_page = result.data.data.last_page;
-        })
-        .catch((err) => {
-          console.log(err.status);
-        });
+      console.log(this.role);
+      if (this.role == 2) {
+        this.$router.push({ path: '/order' });
+      } else {
+        await axios.get("sanctum/csrf-cookie");
+        await axios
+          .get("/api/get-data-ware-house")
+          .then((result) => {
+            this.dataResposed = result.data.data.data;
+            this.last_page = result.data.data.last_page;
+          })
+          .catch((err) => {
+            console.log(err.status);
+          });
+      }
     }
   },
   methods: {
@@ -296,7 +299,7 @@ td {
   background-color: #96d4d4;
 }
 
-.btn-custom-center{
+.btn-custom-center {
   position: relative;
   background-color: white;
   color: #ea0a2a;
@@ -305,15 +308,15 @@ td {
   z-index: 1;
   font-weight: bold;
 }
-.btn-custom-center:hover{
+.btn-custom-center:hover {
   color: #ea0a2a;
   z-index: 1;
 }
-.custom-location-btn{
+.custom-location-btn {
   margin-top: -25px;
   z-index: 1;
 }
-.text-center-custom{
+.text-center-custom {
   text-align: center !important;
 }
 </style>

@@ -9,7 +9,7 @@
             height="30px"
           />
         </li>
-        <li class="nav-item nav-custom li-custom-top">
+        <li class="nav-item nav-custom li-custom-top" v-if="this.role != 2">
           <router-link class="nav-link set-text" to="/home">
             <img
                 src="https://i.ibb.co/QX2LxB5/kho-2.png"
@@ -42,7 +42,7 @@
           </router-link>
         </li>
 
-        <li class="nav-item nav-custom li-custom-top">
+        <li class="nav-item nav-custom li-custom-top" v-if="this.role != 2">
           <router-link class="nav-link set-text" to="/user">
             <img
                     src="https://i.ibb.co/JCfw3LY/User.png"
@@ -56,7 +56,20 @@
     </aside>
   </div>
 </template>
-
+<script>
+export default {
+    data() {
+      return {
+        name: null,
+        role: null,
+      };
+    },
+  created(){
+      this.role= window.atob(localStorage.getItem("_token")).slice(0,1);
+      console.log(this.role);
+  }
+}
+</script>
 <style>
 .menu-left {
   background-color: #ffff;
