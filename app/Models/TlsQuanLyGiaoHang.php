@@ -67,4 +67,38 @@ class TlsQuanLyGiaoHang extends Model
     public static function deleteDonHang($id_quan_ly_giao){
         DB::table('tls_quan_ly_giao_hangs')->where('id_quan_ly_giao', $id_quan_ly_giao)->delete();
     }
+    
+    // "id_quan_ly_giao": 30,
+    // "ma_so_seri": "FXCYv",
+    // "dia_chi_giao_hang": "FIKyrZeg9wFCivcRTX7J",
+    // "so_luong": 1,
+    // "gia_ban": 3,
+    // "ngay_giao": "",
+    // "trang_thai": "3",
+    // "user_giao_hang": 2,
+    // "kho_hang": "8nW",
+    // "ten_khach_hang": "Le Van A",
+    // "so_dien_thoai": "0352062266",
+    // "ghi_chu": "",
+    // "name": "Christa Greenfelder"
+
+    public static function getDataWhenUserID($user_id){
+        // $result = DB::table('tls_quan_ly_giao_hangs')
+        //             ->select('tls_quan_ly_kho_hangs.ma_so_seri', 'tls_quan_ly_giao_hangs.dia_chi_giao_hang', 
+        //             'tls_quan_ly_giao_hangs.so_luong', 'tls_quan_ly_kho_hangs.gia_ban', 'tls_quan_ly_giao_hangs.ten_khach_hang', 'tls_quan_ly_giao_hangs.so_dien_thoai')
+        //             ->join('tls_quan_ly_kho_hangs', 'tls_quan_ly_kho_hangs.id_kho_hang', '=', 'tls_quan_ly_giao_hangs.id_kho_hang')
+        //             ->join('users', 'users.id', '=', 'tls_quan_ly_giao_hangs.user_giao_hang')
+        //             ->where('tls_quan_ly_giao_hangs.user_giao_hang', '=', $user_id)->get();
+
+            $result = DB::table('tls_quan_ly_giao_hangs')
+                    ->select('tls_quan_ly_giao_hangs.id_quan_ly_giao', 'tls_quan_ly_kho_hangs.ma_so_seri', 'tls_quan_ly_giao_hangs.dia_chi_giao_hang', 
+                    'tls_quan_ly_giao_hangs.so_luong', 'tls_quan_ly_kho_hangs.gia_ban' ,'tls_quan_ly_giao_hangs.ngay_giao', 'tls_quan_ly_giao_hangs.trang_thai',
+                    'tls_quan_ly_giao_hangs.user_giao_hang', 'tls_quan_ly_kho_hangs.kho_hang', 'tls_quan_ly_giao_hangs.ten_khach_hang', 'tls_quan_ly_giao_hangs.so_dien_thoai',
+                    'tls_quan_ly_giao_hangs.ghi_chu', 'users.name')
+                    ->join('tls_quan_ly_kho_hangs', 'tls_quan_ly_kho_hangs.id_kho_hang', '=', 'tls_quan_ly_giao_hangs.id_kho_hang')
+                    ->leftJoin('users', 'users.id', '=', 'tls_quan_ly_giao_hangs.user_giao_hang')
+                    ->where('tls_quan_ly_giao_hangs.user_giao_hang', '=', $user_id)
+                    ->orderBy('id_quan_ly_giao', 'DESC')->get();
+        return $result;
+    }
 }

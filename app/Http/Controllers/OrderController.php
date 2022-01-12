@@ -123,6 +123,21 @@ class OrderController extends Controller
         }
     }
 
-    
+    public function getDataWhenUserID(Request $request, $user_id)
+    {
+        try {
+            $data = TlsQuanLyGiaoHang::getDataWhenUserID($user_id);
+
+            return response()->json([
+                'status_code' => 200,
+                'data' => $data,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status_code' => 500,
+                'Error' => 'Error',
+            ]);
+        }
+    }
     
 }

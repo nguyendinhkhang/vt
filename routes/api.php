@@ -44,4 +44,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     //Thu Hoi
     Route::post('/delete-data-order', [OrderController::class, 'deleteDonHang'])->name('Delete-Data-User');
+    //Shiping
+    Route::get('/get-data-order-user/{user_id}', [OrderController::class, 'getDataWhenUserID'])->name('Get-Order-When-User-Ship-ID');
 });
