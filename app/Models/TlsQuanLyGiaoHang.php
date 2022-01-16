@@ -116,10 +116,10 @@ class TlsQuanLyGiaoHang extends Model
                     'tls_quan_ly_giao_hangs.ghi_chu', 'users.name', 'tls_quan_ly_giao_hangs.latitude', 'tls_quan_ly_giao_hangs.longitude')
                     ->join('tls_quan_ly_kho_hangs', 'tls_quan_ly_kho_hangs.id_kho_hang', '=', 'tls_quan_ly_giao_hangs.id_kho_hang')
                     ->leftJoin('users', 'users.id', '=', 'tls_quan_ly_giao_hangs.user_giao_hang')
-                    ->where('tls_quan_ly_giao_hangs.user_giao_hang', '=', $user_id)
                     ->where('tls_quan_ly_giao_hangs.trang_thai = 1')
                     ->orWhere('tls_quan_ly_giao_hangs.trang_thai = 2')
                     ->orWhere('tls_quan_ly_giao_hangs.trang_thai = 4')
+                    ->where('tls_quan_ly_giao_hangs.user_giao_hang', '=', $user_id)
                     ->orderBy('id_quan_ly_giao', 'DESC')->get();
         return $result;
     }
