@@ -66,6 +66,7 @@ class OrderController extends Controller
     public function createDonHang(Request $request)
     {
         try {
+            dd("?");
             $dia_chi_giao_hang = $request->input('dia_chi_giao_hang');
             $so_luong = $request->input('so_luong');
             $ten_khach_hang = $request->input('ten_khach_hang');

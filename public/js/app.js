@@ -7448,6 +7448,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     latitude: latitude,
                     longitude: longitude
                   }).then(function (result) {
+                    console.log(result);
+
                     if (result.data.status_code == 200) {
                       axios.post("/api/update-so-luong-order", {
                         id_kho_hang: _this2.id_kho_hang,
