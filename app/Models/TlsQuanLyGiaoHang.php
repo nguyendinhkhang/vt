@@ -141,4 +141,13 @@ class TlsQuanLyGiaoHang extends Model
                               'updated_at' => date('Y-m-d G:i:s'),
                             ]);
     }
+
+    public static function updateDataRedfundShip($id_quan_ly_giao, $trang_thai,$ghi_chu){
+        DB::table('tls_quan_ly_giao_hangs')->where('id_quan_ly_giao', $id_quan_ly_giao)
+                          ->update([
+                              'trang_thai' => $trang_thai,
+                              'ghi_chu' => $ghi_chu,
+                              'updated_at' => date('Y-m-d G:i:s'),
+                            ]);
+    }
 }
