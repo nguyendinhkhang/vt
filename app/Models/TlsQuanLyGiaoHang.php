@@ -135,7 +135,7 @@ class TlsQuanLyGiaoHang extends Model
     }
 
     public static function updateDataShip($id_quan_ly_giao, $trang_thai){
-        DB::table('tls_quan_ly_giao_hangs')->where('id_quan_ly_giao', $id)
+        DB::table('tls_quan_ly_giao_hangs')->where('id_quan_ly_giao', $id_quan_ly_giao)
                           ->update([
                               'trang_thai' => $trang_thai,
                               'updated_at' => date('Y-m-d G:i:s'),
