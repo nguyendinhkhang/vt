@@ -39,7 +39,7 @@ class TlsQuanLyGiaoHang extends Model
                             ]);
     }
 
-    public static function createDonHang($dia_chi_giao_hang, $so_luong, $user_dam_nhiem, $ten_khach_hang, $so_dien_thoai, $id_kho_hang){
+    public static function createDonHang($dia_chi_giao_hang, $so_luong, $user_dam_nhiem, $ten_khach_hang, $so_dien_thoai, $id_kho_hang, $latitude, $longitude){
         DB::table('tls_quan_ly_giao_hangs')->insert(
             array(
                 'dia_chi_giao_hang' => (string) $dia_chi_giao_hang,
@@ -52,14 +52,39 @@ class TlsQuanLyGiaoHang extends Model
                 'ghi_chu' => '',
                 'user_giao_hang' => -1,
                 'id_kho_hang' => (int)$id_kho_hang,
+                'latitude' => (float)$latitude,
+                'longitude' => (float)$longitude,
+                'updated_at' => date('Y-m-d G:i:s'),
+                'created_at' => date('Y-m-d G:i:s'),
             )
             );
     }
 
-    public static function dataThongKe($trang_thai, $date, $compare){
+    public static function dataThongKe($trang_thai, $from, $to){
         $result = DB::table('tls_quan_ly_giao_hangs')
-                    ->whereRaw(DB::raw('DATEDIFF(tls_quan_ly_giao_hangs.updated_at, "'.$date.'") = '.$compare.''))
-                    ->where('trang_thai', '=', $trang_thai)->get();
+                    ->whereBetween('updated_at', [$from, $to])
+                    ->where('trang_thai', '=', $trang_thai)
+                    ->orderBy('id_quan_ly_giao', 'DESC')->paginate(8);
+
+        return $result;
+    }
+
+    public static function dataThongKeDoanhThu($trang_thai, $from, $to){
+        $result = DB::table('tls_quan_ly_giao_hangs')
+                    ->select('tls_quan_ly_kho_hangs.ma_so_seri','tls_quan_ly_giao_hangs.gia_ban', 'tls_quan_ly_kho_hangs.kho_hang', 'tls_quan_ly_kho_hangs.ten_san_pham')
+                    ->join('tls_quan_ly_kho_hangs', 'tls_quan_ly_kho_hangs.id_kho_hang', '=', 'tls_quan_ly_giao_hangs.id_kho_hang')            
+                    ->whereBetween('tls_quan_ly_giao_hangs.updated_at', [$from, $to])
+                    ->where('tls_quan_ly_giao_hangs.trang_thai', '=', $trang_thai)->paginate(8);
+
+        return $result;
+    }
+
+    public static function dataTongDoanhThu($trang_thai, $from, $to){
+        $result = DB::table('tls_quan_ly_giao_hangs')
+                ->select(DB::raw('SUM(tls_quan_ly_giao_hangs.gia_ban) as gia_ban'))
+                ->join('tls_quan_ly_kho_hangs', 'tls_quan_ly_kho_hangs.id_kho_hang', '=', 'tls_quan_ly_giao_hangs.id_kho_hang')   
+                ->whereBetween('tls_quan_ly_giao_hangs.updated_at', [$from, $to])
+                ->where('tls_quan_ly_giao_hangs.trang_thai', '=', $trang_thai)->get();
 
         return $result;
     }
@@ -83,13 +108,6 @@ class TlsQuanLyGiaoHang extends Model
     // "name": "Christa Greenfelder"
 
     public static function getDataWhenUserID($user_id){
-        // $result = DB::table('tls_quan_ly_giao_hangs')
-        //             ->select('tls_quan_ly_kho_hangs.ma_so_seri', 'tls_quan_ly_giao_hangs.dia_chi_giao_hang', 
-        //             'tls_quan_ly_giao_hangs.so_luong', 'tls_quan_ly_kho_hangs.gia_ban', 'tls_quan_ly_giao_hangs.ten_khach_hang', 'tls_quan_ly_giao_hangs.so_dien_thoai')
-        //             ->join('tls_quan_ly_kho_hangs', 'tls_quan_ly_kho_hangs.id_kho_hang', '=', 'tls_quan_ly_giao_hangs.id_kho_hang')
-        //             ->join('users', 'users.id', '=', 'tls_quan_ly_giao_hangs.user_giao_hang')
-        //             ->where('tls_quan_ly_giao_hangs.user_giao_hang', '=', $user_id)->get();
-
             $result = DB::table('tls_quan_ly_giao_hangs')
                     ->select('tls_quan_ly_giao_hangs.id_quan_ly_giao', 'tls_quan_ly_kho_hangs.ma_so_seri', 'tls_quan_ly_giao_hangs.dia_chi_giao_hang', 
                     'tls_quan_ly_giao_hangs.so_luong', 'tls_quan_ly_kho_hangs.gia_ban' ,'tls_quan_ly_giao_hangs.ngay_giao', 'tls_quan_ly_giao_hangs.trang_thai',
@@ -101,4 +119,17 @@ class TlsQuanLyGiaoHang extends Model
                     ->orderBy('id_quan_ly_giao', 'DESC')->get();
         return $result;
     }
+
+    public static function getDataWhenUserIDAdmin($user_id){
+        $result = DB::table('tls_quan_ly_giao_hangs')
+                ->select('tls_quan_ly_giao_hangs.id_quan_ly_giao', 'tls_quan_ly_kho_hangs.ma_so_seri', 'tls_quan_ly_giao_hangs.dia_chi_giao_hang', 
+                'tls_quan_ly_giao_hangs.so_luong', 'tls_quan_ly_kho_hangs.gia_ban' ,'tls_quan_ly_giao_hangs.ngay_giao', 'tls_quan_ly_giao_hangs.trang_thai',
+                'tls_quan_ly_giao_hangs.user_giao_hang', 'tls_quan_ly_kho_hangs.kho_hang', 'tls_quan_ly_giao_hangs.ten_khach_hang', 'tls_quan_ly_giao_hangs.so_dien_thoai',
+                'tls_quan_ly_giao_hangs.ghi_chu', 'users.name')
+                ->join('tls_quan_ly_kho_hangs', 'tls_quan_ly_kho_hangs.id_kho_hang', '=', 'tls_quan_ly_giao_hangs.id_kho_hang')
+                ->leftJoin('users', 'users.id', '=', 'tls_quan_ly_giao_hangs.user_giao_hang')
+                ->where('tls_quan_ly_giao_hangs.user_giao_hang', '=', $user_id)
+                ->orderBy('id_quan_ly_giao', 'DESC')->paginate(8);
+    return $result;
+}
 }

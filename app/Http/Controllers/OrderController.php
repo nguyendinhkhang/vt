@@ -72,8 +72,10 @@ class OrderController extends Controller
             $user_dam_nhiem = $request->input('user_dam_nhiem');
             $so_dien_thoai = $request->input('so_dien_thoai');
             $id_kho_hang = $request->input('id_kho_hang');
-   
-            $data = TlsQuanLyGiaoHang::createDonHang($dia_chi_giao_hang, $so_luong, $user_dam_nhiem, $ten_khach_hang, $so_dien_thoai, $id_kho_hang);
+            $latitude = $request->input('latitude');
+            $longitude = $request->input('longitude');
+
+            $data = TlsQuanLyGiaoHang::createDonHang($dia_chi_giao_hang, $so_luong, $user_dam_nhiem, $ten_khach_hang, $so_dien_thoai, $id_kho_hang, $latitude, $longitude );
 
             return response()->json([
                 'status_code' => 200,
@@ -87,10 +89,45 @@ class OrderController extends Controller
         }
     }
 
-    public function dataThongKe(Request $request, $trang_thai, $date, $compare)
+    public function dataThongKe(Request $request, $trang_thai, $from, $to)
     {
         try {
-            $data = TlsQuanLyGiaoHang::dataThongKe($trang_thai, $date, $compare);
+            $data = TlsQuanLyGiaoHang::dataThongKe($trang_thai, $from, $to);
+
+            return response()->json([
+                'status_code' => 200,
+                'data' => $data,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status_code' => 500,
+                'Error' => 'Error' + $th,
+            ]);
+        }
+    }
+
+    public function dataThongKeDoanhThu(Request $request, $trang_thai, $from, $to)
+    {
+        try {
+
+            $data = TlsQuanLyGiaoHang::dataThongKeDoanhThu($trang_thai, $from, $to);
+
+            return response()->json([
+                'status_code' => 200,
+                'data' => $data,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status_code' => 500,
+                'Error' => 'Error' + $th,
+            ]);
+        }
+    }
+
+    public function dataTongDoanhThu(Request $request, $trang_thai, $from, $to)
+    {
+        try {
+            $data = TlsQuanLyGiaoHang::dataTongDoanhThu($trang_thai, $from, $to);
 
             return response()->json([
                 'status_code' => 200,
@@ -139,5 +176,23 @@ class OrderController extends Controller
             ]);
         }
     }
+
+    public function getDataWhenUserIDAdmin(Request $request, $user_id)
+    {
+        try {
+            $data = TlsQuanLyGiaoHang::getDataWhenUserIDAdmin($user_id);
+            
+            return response()->json([
+                'status_code' => 200,
+                'data' => $data,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status_code' => 500,
+                'Error' => 'Error',
+            ]);
+        }
+    }
+    
     
 }

@@ -140,6 +140,17 @@ export default {
             if (this.role == 2) {
                 this.id_user = window.atob(localStorage.getItem("_dataLogin"));
                 console.log(this.id_user);
+                await axios.get("sanctum/csrf-cookie");
+                await axios
+                    .get("/api/get-data-order-role/" + this.id_user)
+                    .then((result) => {
+                        console.log(result);
+                        this.dataResposed = result.data.data.data;
+                        this.last_page = result.data.data.last_page;
+                    })
+                    .catch((err) => {
+                        console.log(err.status);
+                    });
                 // Select theo ID
             } else {
                 await axios.get("sanctum/csrf-cookie");

@@ -22,9 +22,12 @@ class TlsQuanLyGiaoHangFactory extends Factory
             'user_dam_nhiem' => 1,
             'ten_khach_hang' => 'Le Van A',
             'so_dien_thoai' => '0352062266',
-            'ghi_chu' => '',
             'user_giao_hang' => rand(1, 10),
             'id_kho_hang' => rand(1, 10),
+            'latitude' => '12.67608',
+            'longitude' => '108.04084',
+            'ghi_chu' => '',
+            'gia_ban' => 2500,
         ];
     }
 }

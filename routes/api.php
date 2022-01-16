@@ -40,10 +40,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/get-data-order/{id}', [OrderController::class, 'getDataWhenID'])->name('Get-Order-When-ID');
     Route::post('/update-data-order', [OrderController::class, 'updateDataUserDeal'])->name('Update-Data-User');
     Route::post('/create-data-order', [OrderController::class, 'createDonHang'])->name('Create-Data-User');
-    Route::get('/get-thong-ke-don-hang/{trang_thai}/{date}/{compare}', [OrderController::class, 'dataThongKe'])->name('data-thong-ke');
+    Route::get('/get-thong-ke-don-hang/{trang_thai}/{from}/{to}', [OrderController::class, 'dataThongKe'])->name('data-thong-ke');
+    Route::get('/get-thong-ke-doanh-thu/{trang_thai}/{from}/{to}', [OrderController::class, 'dataThongKeDoanhThu'])->name('data-thong-ke-doanh-thu');
+    Route::get('/get-tong-doanh-thu/{trang_thai}/{from}/{to}', [OrderController::class, 'dataTongDoanhThu'])->name('data-tong-doanh-thu');
 
     //Thu Hoi
     Route::post('/delete-data-order', [OrderController::class, 'deleteDonHang'])->name('Delete-Data-User');
     //Shiping
     Route::get('/get-data-order-user/{user_id}', [OrderController::class, 'getDataWhenUserID'])->name('Get-Order-When-User-Ship-ID');
+    Route::get('/get-data-order-role/{user_id}', [OrderController::class, 'getDataWhenUserIDAdmin'])->name('Get-Order-When-User-Admin-ID');
 });

@@ -22,9 +22,12 @@ class TlsQuanLyGiaoHang extends Migration
             $table->integer('user_dam_nhiem')->nullable()->default(-1);
             $table->string('ten_khach_hang');
             $table->string('so_dien_thoai');
-            $table->string('ghi_chu');
             $table->integer('user_giao_hang')->nullable()->default(-1);
             $table->integer('id_kho_hang');
+            $table->string('latitude');
+            $table->string('longitude');
+            $table->integer('gia_ban');
+            $table->string('ghi_chu');
             $table->timestamps();
         });
     }
