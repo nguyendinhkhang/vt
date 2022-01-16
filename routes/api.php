@@ -49,4 +49,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     //Shiping
     Route::get('/get-data-order-user/{user_id}', [OrderController::class, 'getDataWhenUserID'])->name('Get-Order-When-User-Ship-ID');
     Route::get('/get-data-order-role/{user_id}', [OrderController::class, 'getDataWhenUserIDAdmin'])->name('Get-Order-When-User-Admin-ID');
+    Route::get('/update-data-ship', [OrderController::class, 'updateDataShip'])->name('update-Data-Ship');
+
 });

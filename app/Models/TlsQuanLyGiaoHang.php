@@ -132,5 +132,13 @@ class TlsQuanLyGiaoHang extends Model
                 ->where('tls_quan_ly_giao_hangs.user_dam_nhiem', '=', $user_id)
                 ->orderBy('id_quan_ly_giao', 'DESC')->paginate(8);
     return $result;
-}
+    }
+
+    public static function updateDataShip($id_quan_ly_giao, $trang_thai){
+        DB::table('tls_quan_ly_giao_hangs')->where('id_quan_ly_giao', $id)
+                          ->update([
+                              'trang_thai' => $trang_thai,
+                              'updated_at' => date('Y-m-d G:i:s'),
+                            ]);
+    }
 }

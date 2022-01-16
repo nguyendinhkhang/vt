@@ -39940,7 +39940,7 @@ var render = function () {
                         : data.trang_thai == 2
                         ? _c("td", [
                             _c("p", { staticClass: "text-warning" }, [
-                              _vm._v("Đang giao giao"),
+                              _vm._v("Đang giao"),
                             ]),
                           ])
                         : data.trang_thai == 3

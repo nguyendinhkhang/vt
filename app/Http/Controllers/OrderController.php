@@ -195,6 +195,27 @@ class OrderController extends Controller
             ]);
         }
     }
+
+    public function updateDataShip(Request $request)
+    {
+        try {
+            $id_quan_ly_giao = $request->input('id_quan_ly_giao');
+            $trang_thai = $request->input('trang_thai');
+
+            $data = TlsQuanLyGiaoHang::updateDataShip($id_quan_ly_giao, $trang_thai);
+            
+            return response()->json([
+                'status_code' => 200,
+                'data' => $data,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status_code' => 500,
+                'Error' => 'Error',
+            ]);
+        }
+    }
+
     
     
 }

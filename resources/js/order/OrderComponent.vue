@@ -39,7 +39,7 @@
                                     <p class="text-danger">Chưa được giao</p>
                                 </td>
                                 <td v-else-if="data.trang_thai == 2">
-                                    <p class="text-warning">Đang giao giao</p>
+                                    <p class="text-warning">Đang giao</p>
                                 </td>
                                 <td v-else-if="data.trang_thai == 3">
                                     <p class="text-success">Đã giao</p>
