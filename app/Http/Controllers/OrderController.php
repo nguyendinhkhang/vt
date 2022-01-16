@@ -74,8 +74,10 @@ class OrderController extends Controller
             $id_kho_hang = $request->input('id_kho_hang');
             $latitude = $request->input('latitude');
             $longitude = $request->input('longitude');
+            $gia_ban = $request->input('gia_ban');
+            
 
-            $data = TlsQuanLyGiaoHang::createDonHang($dia_chi_giao_hang, $so_luong, $user_dam_nhiem, $ten_khach_hang, $so_dien_thoai, $id_kho_hang, $latitude, $longitude );
+            $data = TlsQuanLyGiaoHang::createDonHang($dia_chi_giao_hang, $so_luong, $user_dam_nhiem, $ten_khach_hang, $so_dien_thoai, $id_kho_hang, $latitude, $longitude, $gia_ban );
 
             return response()->json([
                 'status_code' => 200,

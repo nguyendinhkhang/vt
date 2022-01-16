@@ -5882,6 +5882,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5922,7 +5939,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               }
 
               _this.$router.push({
-                path: '/order'
+                path: "/order"
               });
 
               _context.next = 16;
@@ -7293,6 +7310,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       so_luong_trong_kho: null,
       so_luong_da_xuat: null,
       options: [],
+      gia_ban: 0,
       errDia_chi_giao_hang: null,
       errTen_khach_hang: null,
       errSo_dien_thoai: null,
@@ -7346,7 +7364,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this.id_kho_hang = _this.$route.params.id;
               _this.so_luong_trong_kho = _this.$route.params.tong;
               _this.so_luong_da_xuat = _this.$route.params.daxuat;
-              _context.next = 5;
+              _this.gia_ban = _this.$route.params.gia;
+              _context.next = 6;
               return axios.get("/api/get-name-usr/kho-tls").then(function (result) {
                 _this.options = result.data.data;
               }).then(function (result) {
@@ -7355,7 +7374,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 console.log("Error Sua Kho Hang");
               });
 
-            case 5:
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -7445,6 +7464,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     user_dam_nhiem: _this2.user_dam_nhiem,
                     so_dien_thoai: _this2.so_dien_thoai,
                     id_kho_hang: _this2.id_kho_hang,
+                    gia_ban: _this2.gia_ban,
                     latitude: latitude,
                     longitude: longitude
                   }).then(function (result) {
@@ -9284,7 +9304,7 @@ var routes = [{
   component: _resources_js_home_HomeCreateComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
   name: "HomeCreateComponent"
 }, {
-  path: "/home/xuat-kho-hang?don=:id:tong:daxuat",
+  path: "/home/xuat-kho-hang?don=:id:tong:daxuat:gia",
   component: _resources_js_home_HomeExportComponent__WEBPACK_IMPORTED_MODULE_4__["default"],
   name: "HomeExportComponent"
 }, {
@@ -14520,7 +14540,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.dropdown .dropdown-input[data-v-6149e08a] {\n  min-width: 40px;\n}\n.dropdown-css {\n  width: 85%;\n  margin-left: inherit;\n}\n.custom-table {\n  margin-left: 7vh;\n}\ntable,\nth,\ntd {\n  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;\n  background-color: white;\n  border-radius: 25px;\n}\nth,\ntd {\n  background-color: #96d4d4;\n}\n.btn-custom-center {\n  position: relative;\n  background-color: white;\n  color: #ea0a2a;\n  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;\n  margin-left: 38.5%;\n  z-index: 1;\n  font-weight: bold;\n}\n.btn-custom-center:hover {\n  color: #ea0a2a;\n  z-index: 1;\n}\n.custom-location-btn {\n  margin-top: -25px;\n  z-index: 1;\n}\n.text-center-custom {\n  text-align: center !important;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.dropdown .dropdown-input[data-v-6149e08a] {\n    min-width: 40px;\n}\n.dropdown-css {\n    width: 85%;\n    margin-left: inherit;\n}\n.custom-table {\n    margin-left: 7vh;\n}\ntable,\nth,\ntd {\n    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;\n    background-color: white;\n    border-radius: 25px;\n}\nth,\ntd {\n    background-color: #96d4d4;\n}\n.btn-custom-center {\n    position: relative;\n    background-color: white;\n    color: #ea0a2a;\n    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;\n    margin-left: 38.5%;\n    z-index: 1;\n    font-weight: bold;\n}\n.btn-custom-center:hover {\n    color: #ea0a2a;\n    z-index: 1;\n}\n.custom-location-btn {\n    margin-top: -25px;\n    z-index: 1;\n}\n.text-center-custom {\n    text-align: center !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38078,7 +38098,11 @@ var render = function () {
                       staticClass: "btn w-25 btn-custom-center",
                       attrs: { to: "/home/tao-kho-hang" },
                     },
-                    [_vm._v("\n            Thêm mới\n          ")]
+                    [
+                      _vm._v(
+                        "\n                        Thêm mới\n                    "
+                      ),
+                    ]
                   ),
                 ],
                 1
@@ -38109,9 +38133,9 @@ var render = function () {
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n                " +
+                          "\n                                " +
                             _vm._s(data.so_luong_trong_kho) +
-                            "\n              "
+                            "\n                            "
                         ),
                       ]),
                       _vm._v(" "),
@@ -38139,9 +38163,9 @@ var render = function () {
                           )
                         : _c("td", [
                             _vm._v(
-                              "\n                " +
+                              "\n                                " +
                                 _vm._s(data.so_luong_da_xuat) +
-                                "\n              "
+                                "\n                            "
                             ),
                           ]),
                       _vm._v(" "),
@@ -38189,6 +38213,7 @@ var render = function () {
                                     id: data.id_kho_hang,
                                     tong: data.so_luong_trong_kho,
                                     daxuat: data.so_luong_da_xuat,
+                                    gia: data.gia_ban,
                                   },
                                 },
                               },
@@ -38212,7 +38237,11 @@ var render = function () {
                     _c("li", { staticClass: "page-item" }, [
                       _c("p", { staticClass: "page-custom" }, [
                         _vm._v(
-                          _vm._s(_vm.first_page) + "/" + _vm._s(_vm.last_page)
+                          "\n                                " +
+                            _vm._s(_vm.first_page) +
+                            "/" +
+                            _vm._s(_vm.last_page) +
+                            "\n                            "
                         ),
                       ]),
                     ]),
@@ -38309,11 +38338,15 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col text-center-custom" } }, [
-          _vm._v("Tên sản phẩm"),
+          _vm._v(
+            "\n                                Tên sản phẩm\n                            "
+          ),
         ]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col text-center-custom" } }, [
-          _vm._v("Nhà cung cấp"),
+          _vm._v(
+            "\n                                Nhà cung cấp\n                            "
+          ),
         ]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col text-center-custom" } }, [
@@ -38337,7 +38370,9 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col text-center-custom" } }, [
-          _vm._v("Hành động"),
+          _vm._v(
+            "\n                                Hành động\n                            "
+          ),
         ]),
       ]),
     ])

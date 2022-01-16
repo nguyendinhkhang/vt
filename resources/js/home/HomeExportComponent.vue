@@ -205,6 +205,7 @@ export default {
             so_luong_trong_kho: null,
             so_luong_da_xuat: null,
             options: [],
+            gia_ban: 0,
             errDia_chi_giao_hang: null,
             errTen_khach_hang: null,
             errSo_dien_thoai: null,
@@ -251,6 +252,7 @@ export default {
         this.id_kho_hang = this.$route.params.id;
         this.so_luong_trong_kho = this.$route.params.tong;
         this.so_luong_da_xuat = this.$route.params.daxuat;
+        this.gia_ban = this.$route.params.gia;
 
         await axios
             .get("/api/get-name-usr/kho-tls")
@@ -344,6 +346,7 @@ export default {
                         user_dam_nhiem: this.user_dam_nhiem,
                         so_dien_thoai: this.so_dien_thoai,
                         id_kho_hang: this.id_kho_hang,
+                        gia_ban: this.gia_ban,
                         latitude: latitude,
                         longitude: longitude,
                     })
