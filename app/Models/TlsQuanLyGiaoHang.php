@@ -40,7 +40,7 @@ class TlsQuanLyGiaoHang extends Model
     }
 
     public static function createDonHang($dia_chi_giao_hang, $so_luong, $user_dam_nhiem, $ten_khach_hang, $so_dien_thoai, $id_kho_hang, $latitude, $longitude){
-        DB::table('tls_quan_ly_giao_hangs')->insert(
+        $s = DB::table('tls_quan_ly_giao_hangs')->insert(
             array(
                 'dia_chi_giao_hang' => (string) $dia_chi_giao_hang,
                 'so_luong' => (int)$so_luong,
@@ -57,7 +57,8 @@ class TlsQuanLyGiaoHang extends Model
                 'updated_at' => date('Y-m-d G:i:s'),
                 'created_at' => date('Y-m-d G:i:s'),
             )
-            );
+            )->toSql();
+            dd($s);
     }
 
     public static function dataThongKe($trang_thai, $from, $to){
