@@ -52,8 +52,8 @@ class TlsQuanLyGiaoHang extends Model
                 'ghi_chu' => '',
                 'user_giao_hang' => -1,
                 'id_kho_hang' => (int)$id_kho_hang,
-                'latitude' => (float)$latitude,
-                'longitude' => (float)$longitude,
+                'latitude' => (string)$latitude,
+                'longitude' => (string)$longitude,
                 'updated_at' => date('Y-m-d G:i:s'),
                 'created_at' => date('Y-m-d G:i:s'),
             )
