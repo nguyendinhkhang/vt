@@ -66,7 +66,6 @@ class OrderController extends Controller
     public function createDonHang(Request $request)
     {
         try {
-            dd("?");
             $dia_chi_giao_hang = $request->input('dia_chi_giao_hang');
             $so_luong = $request->input('so_luong');
             $ten_khach_hang = $request->input('ten_khach_hang');
@@ -75,6 +74,15 @@ class OrderController extends Controller
             $id_kho_hang = $request->input('id_kho_hang');
             $latitude = $request->input('latitude');
             $longitude = $request->input('longitude');
+            dump($dia_chi_giao_hang);
+            dump($so_luong);
+            dump($ten_khach_hang);
+            dump($user_dam_nhiem);
+            dump($so_dien_thoai);
+            dump($id_kho_hang);
+            dump($latitude);
+            dump($longitude);
+            dd("?");
 
             $data = TlsQuanLyGiaoHang::createDonHang($dia_chi_giao_hang, $so_luong, $user_dam_nhiem, $ten_khach_hang, $so_dien_thoai, $id_kho_hang, $latitude, $longitude );
 
