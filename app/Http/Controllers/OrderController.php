@@ -237,7 +237,24 @@ class OrderController extends Controller
         }
     }
 
-    
-    
-    
+    public function getDataWhenUserShipped(Request $request, $user_id)
+    {
+        try {
+            $date = getdate();
+            $to = $date['year']."-".$date['mon']."-".($date['mday']-1) . " 00:00:00";
+            $from = $date['year']."-".$date['mon']."-".($date['mday']+1) . " 00:00:00";
+
+            $data = TlsQuanLyGiaoHang::getDataWhenUserShipped($user_id, $to, $from);
+            
+            return response()->json([
+                'status_code' => 200,
+                'data' => $data,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status_code' => 500,
+                'Error' => 'Error',
+            ]);
+        }
+    }
 }
