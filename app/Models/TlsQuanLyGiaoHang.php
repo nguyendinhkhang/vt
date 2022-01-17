@@ -39,6 +39,15 @@ class TlsQuanLyGiaoHang extends Model
                             ]);
     }
 
+    public static function updateDataUserDealBH($id, $user_giao_hang,$trang_thai, $ngay_giao){
+        DB::table('tls_quan_ly_giao_hangs')->where('id_quan_ly_giao', $id)
+                          ->update([
+                              'user_giao_hang' => $user_giao_hang,
+                              'trang_thai' => $trang_thai ,
+                              'ngay_giao' => $ngay_giao,
+                            ]);
+    }
+
     public static function createDonHang($dia_chi_giao_hang, $so_luong, $user_dam_nhiem, $ten_khach_hang, $so_dien_thoai, $id_kho_hang, $latitude, $longitude, $gia_ban){
         DB::table('tls_quan_ly_giao_hangs')->insert(
             array(
@@ -105,7 +114,8 @@ class TlsQuanLyGiaoHang extends Model
                     ->where(function ($query) {
                         $query->where('tls_quan_ly_giao_hangs.trang_thai', '=', 1)
                         ->orWhere('tls_quan_ly_giao_hangs.trang_thai', '=', 2)
-                        ->orWhere('tls_quan_ly_giao_hangs.trang_thai', '=', 4);
+                        ->orWhere('tls_quan_ly_giao_hangs.trang_thai', '=', 4)
+                        ->orWhere('tls_quan_ly_giao_hangs.trang_thai', '=', 6);
                     })
                     ->where('tls_quan_ly_giao_hangs.user_giao_hang', '=', $user_id)
                     ->orderBy('id_quan_ly_giao', 'DESC')->get();

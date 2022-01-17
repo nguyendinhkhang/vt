@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use App\Models\TlsQuanLyKhoHang;
 use App\Models\TlsQuanLyGiaoHang;
+use App\Models\StorageRemove;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,5 +20,6 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
         TlsQuanLyKhoHang::factory(30)->create();
         TlsQuanLyGiaoHang::factory(30)->create();
+        StorageRemove::factory(5)->create();
     }
 }

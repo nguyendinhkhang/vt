@@ -47,6 +47,12 @@
                                 <td v-else-if="data.trang_thai == 4">
                                     <p class="text-success">Trả về</p>
                                 </td>
+                                <td v-else-if="data.trang_thai == 5">
+                                    <p class="text-warning">Bảo hành</p>
+                                </td>
+                                <td v-else-if="data.trang_thai == 6">
+                                    <p class="text-warning">Chờ giao</p>
+                                </td>
                                 <td>{{ data.name }}</td>
                                 <td>{{ data.kho_hang }}</td>
                                 <td>{{ data.ten_khach_hang }}</td>
@@ -68,7 +74,31 @@
                                     <p class="text-warning">Đang giao</p>
                                 </td>
                                 <td v-if="data.trang_thai == 3">
-                                    <p class="text-success">Hoàn thành</p>
+                                    <button
+                                        type="button"
+                                        class="btn btn-secondary text-white custom-text-order"
+                                        @click="
+                                            baoHanhSanPham(data.id_quan_ly_giao)
+                                        "
+                                    >
+                                        Bảo hành
+                                    </button>
+                                </td>
+                                <td v-if="data.trang_thai == 5">
+                                    <router-link
+                                        class="btn btn-info text-white custom-text-order"
+                                        :to="{
+                                            name: 'OrderSetUserDeadShipBHComponent',
+                                            params: {
+                                                id: data.id_quan_ly_giao,
+                                                trangthai: data.trang_thai,
+                                            },
+                                        }"
+                                        >Hoàn Tất</router-link
+                                    >
+                                </td>
+                                <td v-if="data.trang_thai == 6">
+                                    <p class="text-warning">Chờ giao</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -224,6 +254,27 @@ export default {
             if (!setNotRequest) {
                 this.changePage(this.first_page);
             }
+        },
+
+        async baoHanhSanPham(event) {
+            await axios
+                .post("/api/update-data-ship", {
+                    id_quan_ly_giao: event,
+                    trang_thai: 5,
+                })
+                .then((result) => {
+                    if (result.data.status_code == 200) {
+                        this.showModalSuccess = true;
+                        this.showModal = false;
+                    } else {
+                        alert(
+                            "Cập nhập dữ liệu thất bại vui lòng thử lại sau."
+                        );
+                    }
+                })
+                .catch((err) => {
+                    alert("Cập nhập dữ liệu thất bại vui lòng thử lại sau.");
+                });
         },
     },
 };

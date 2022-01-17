@@ -5,6 +5,7 @@ import HomeEditComponent from "../../resources/js/home/HomeEditComponent";
 import HomeCreateComponent from "../../resources/js/home/HomeCreateComponent";
 import HomeExportComponent from "../../resources/js/home/HomeExportComponent";
 import HomeDetailsOrderExportComponent from "../../resources/js/home/HomeDetailsOrderExportComponent";
+import SaveComponent from "../../resources/js/save/SaveComponent";
 
 import OrderComponent from "../../resources/js/order/OrderComponent";
 import OrderSetUserDeadComponent from "../../resources/js/order/OrderSetUserDeadComponent";
@@ -71,9 +72,19 @@ const routes = [
         name: "OrderSetUserDeadComponent",
     },
     {
+        path: "/home/giao-van-chuyen-bao-hanh?don=:id:trangthai",
+        component: OrderSetUserDeadComponent,
+        name: "OrderSetUserDeadShipBHComponent",
+    },
+    {
         path: "/home/chi-tiet-van-chuyen?don=:id",
         component: HomeDetailsOrderExportComponent,
         name: "HomeDetailsOrderExportComponent",
+    },
+    {
+        path: "/kho-luu-tru",
+        component: SaveComponent,
+        name: "SaveComponent",
     },
 ];
 

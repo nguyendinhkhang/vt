@@ -257,4 +257,26 @@ class OrderController extends Controller
             ]);
         }
     }
+
+    public function updateDataUserDealBH(Request $request)
+    {
+        try {
+            $id = $request->input('id');
+            $user_giao_hang = $request->input('user_giao_hang');
+            $trang_thai = $request->input('trang_thai');
+            $dt = new DateTime();
+            
+            $data = TlsQuanLyGiaoHang::updateDataUserDealBH($id, $user_giao_hang,$trang_thai , (string)$dt->format('d/m/Y'));
+
+            return response()->json([
+                'status_code' => 200,
+                'data' => $data,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status_code' => 500,
+                'Error' => 'Error',
+            ]);
+        }
+    }
 }

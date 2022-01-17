@@ -134,10 +134,12 @@ export default {
             id_quan_ly_giao: null,
             options: [],
             errUser_dam_nhiem: null,
+            trang_thai_don_hang: null,
         };
     },
     async created() {
         this.id_quan_ly_giao = this.$route.params.id;
+        this.trang_thai_don_hang = this.$route.params.trangthai;
         await axios
             .get(`/api/get-data-order/${this.$route.params.id}`)
             .then((result) => {
@@ -172,25 +174,46 @@ export default {
                 this.errUser_dam_nhiem = "Vui lòng người đảm nhiệm";
                 return;
             }
-
-            await axios
-                .post("/api/update-data-order", {
-                    id: this.id_quan_ly_giao,
-                    user_giao_hang: this.id_user,
-                })
-                .then((result) => {
-                    if (result.data.status_code == 200) {
-                        alert("Chúc mừng bạn đã cập nhật thành công.");
-                        this.$router.push({ path: "/order" });
-                    } else {
-                        console.log("Error: ");
-                        alert("err");
-                    }
-                })
-                .catch((err) => {
-                    console.log("Error: " + err);
-                    alert("?");
-                });
+            if (this.trang_thai_don_hang == null) {
+                await axios
+                    .post("/api/update-data-order", {
+                        id: this.id_quan_ly_giao,
+                        user_giao_hang: this.id_user,
+                    })
+                    .then((result) => {
+                        if (result.data.status_code == 200) {
+                            alert("Chúc mừng bạn đã cập nhật thành công.");
+                            this.$router.push({ path: "/order" });
+                        } else {
+                            console.log("Error: ");
+                            alert("err");
+                        }
+                    })
+                    .catch((err) => {
+                        console.log("Error: " + err);
+                        alert("?");
+                    });
+            } else {
+                axios
+                    .post("/api/update-data-order-bh", {
+                        id: this.id_quan_ly_giao,
+                        user_giao_hang: this.id_user,
+                        trang_thai: 6,
+                    })
+                    .then((result) => {
+                        if (result.data.status_code == 200) {
+                            alert("Chúc mừng bạn đã cập nhật thành công.");
+                            this.$router.push({ path: "/order" });
+                        } else {
+                            console.log("Error: ");
+                            alert("err");
+                        }
+                    })
+                    .catch((err) => {
+                        console.log("Error: " + err);
+                        alert("?");
+                    });
+            }
         },
         dataSelecteds(e) {
             this.id_user = e.id;

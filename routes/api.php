@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\WareHouseController;
+use App\Http\Controllers\StorageRemoveController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/get-data-order', [OrderController::class, 'getData'])->name('Get-Order');
     Route::get('/get-data-order/{id}', [OrderController::class, 'getDataWhenID'])->name('Get-Order-When-ID');
     Route::post('/update-data-order', [OrderController::class, 'updateDataUserDeal'])->name('Update-Data-User');
+    Route::post('/update-data-order-bh', [OrderController::class, 'updateDataUserDealBH'])->name('Update-Data-User-BH');
     Route::post('/create-data-order', [OrderController::class, 'createDonHang'])->name('Create-Data-User');
     Route::get('/get-thong-ke-don-hang/{trang_thai}/{from}/{to}', [OrderController::class, 'dataThongKe'])->name('data-thong-ke');
     Route::get('/get-thong-ke-doanh-thu/{trang_thai}/{from}/{to}', [OrderController::class, 'dataThongKeDoanhThu'])->name('data-thong-ke-doanh-thu');
@@ -52,4 +54,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/update-data-ship', [OrderController::class, 'updateDataShip'])->name('update-Data-Ship');
     Route::post('/update-data-refund-ship', [OrderController::class, 'updateDataRedfundShip'])->name('update-Data-Refund-Ship');
     Route::get('/get-data-user-shipped/{user_id}', [OrderController::class, 'getDataWhenUserShipped'])->name('Get-Data-When-User-Shiped');
+
+    // Storage Remove
+    Route::get('/get-data-storage-remove', [StorageRemoveController::class, 'getDataStorage'])->name('Get-Data-Storage');
+    Route::post('/insert-data-storage-remove', [StorageRemoveController::class, 'insertDataStorage'])->name('Insert-Data-Storage');
 });

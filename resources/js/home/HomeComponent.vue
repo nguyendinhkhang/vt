@@ -85,7 +85,21 @@
                                     >
                                     <a
                                         class="btn btn-danger"
-                                        @click="deleteData(data.id_kho_hang)"
+                                        @click="
+                                            showModal = true;
+                                            removeID = data.id_kho_hang;
+                                            dataGet = {
+                                                id_quan_ly_giao:
+                                                    data.id_kho_hang,
+                                                storage_seri: data.ma_so_seri,
+                                                storage_ten_san_pham:
+                                                    data.ten_san_pham,
+                                                storage_nha_cung_cap:
+                                                    data.nha_cung_cap,
+                                                storage_gia_nhap: data.gia_nhap,
+                                            };
+                                            changeRadioBtn();
+                                        "
                                         >Xoá</a
                                     >
 
@@ -147,6 +161,147 @@
                             </li>
                         </ul>
                     </nav>
+
+                    <div v-if="showModal">
+                        <transition name="modal">
+                            <div class="modal-mask">
+                                <div class="modal-wrapper">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">
+                                                    Bạn muốn xóa dữ liệu?
+                                                </h5>
+                                                <button
+                                                    type="button"
+                                                    class="close"
+                                                    data-dismiss="modal"
+                                                    aria-label="Close"
+                                                >
+                                                    <span
+                                                        aria-hidden="true"
+                                                        @click="
+                                                            showModal = false
+                                                        "
+                                                        >&times;</span
+                                                    >
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div
+                                                    style="padding-bottom: 8px"
+                                                >
+                                                    <input
+                                                        type="radio"
+                                                        id="removeAllv"
+                                                        value="removeAll"
+                                                        v-model="picked"
+                                                        @change="changeRadioBtn"
+                                                        checked
+                                                    />
+                                                    <label for=" removeAll"
+                                                        >Xóa</label
+                                                    >
+                                                </div>
+                                                <div
+                                                    style="padding-bottom: 8px"
+                                                >
+                                                    <input
+                                                        type="radio"
+                                                        id="removeSave"
+                                                        value="removeSave"
+                                                        v-model="picked"
+                                                        @change="changeRadioBtn"
+                                                    />
+                                                    <label for="removeSave"
+                                                        >Lưu trữ</label
+                                                    >
+                                                </div>
+                                                <div
+                                                    style="padding-bottom: 8px"
+                                                >
+                                                    <input
+                                                        type="tex"
+                                                        class="form-control"
+                                                        id="ly_do"
+                                                        v-model="ly_do"
+                                                        placeholder="Lý do"
+                                                        :disabled="
+                                                            disabledRemove
+                                                        "
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-secondary"
+                                                    @click="showModal = false"
+                                                >
+                                                    Đóng
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-primary"
+                                                    @click="
+                                                        deleteData(removeID)
+                                                    "
+                                                >
+                                                    Xóa dữ liệu
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+                </div>
+
+                <div v-if="showModalSuccess">
+                    <transition name="modal">
+                        <div class="modal-mask">
+                            <div class="modal-wrapper">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">
+                                                Thông báo
+                                            </h5>
+                                            <button
+                                                type="button"
+                                                class="close"
+                                                data-dismiss="modal"
+                                                aria-label="Close"
+                                            >
+                                                <span
+                                                    aria-hidden="true"
+                                                    @click="
+                                                        showModalSuccess = false
+                                                    "
+                                                    >&times;</span
+                                                >
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Xóa dữ liệu thành công</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button
+                                                type="button"
+                                                class="btn btn-secondary"
+                                                @click="
+                                                    showModalSuccess = false
+                                                "
+                                            >
+                                                Đóng
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </transition>
                 </div>
 
                 <!-- <menu-right></menu-right> -->
@@ -163,6 +318,13 @@ export default {
             first_page: 1,
             last_page: null,
             change_page: 1,
+            showModal: false,
+            picked: "removeAll",
+            ly_do: null,
+            disabledRemove: true,
+            showModalSuccess: false,
+            removeID: 0,
+            dataGet: null,
         };
     },
     async created() {
@@ -254,15 +416,17 @@ export default {
         },
 
         async deleteData(event) {
-            var answer = window.confirm("Bạn có muốn xoá dữ liệu?");
-            if (answer) {
+            console.log(event);
+            console.log(this.picked);
+            if (this.picked == "removeAll") {
                 await axios
                     .post("/api/delete-data-ware-house", {
                         id: event,
                     })
                     .then((result) => {
                         if (result.data.status_code == 200) {
-                            alert("Chúc mừng bạn đã xoá dữ liệu thành công.");
+                            this.showModalSuccess = true;
+                            this.showModal = false;
                             axios
                                 .get("/api/get-data-ware-house")
                                 .then((result) => {
@@ -282,11 +446,75 @@ export default {
                     .catch((err) => {
                         alert("Xoá dữ liệu thất bại vui lòng thử lại sau.");
                     });
+            } else {
+                await axios
+                    .post("/api/insert-data-storage-remove", {
+                        id_quan_ly_giao: this.dataGet.id_quan_ly_giao,
+                        storage_seri: this.dataGet.storage_seri,
+                        storage_ten_san_pham: this.dataGet.storage_ten_san_pham,
+                        storage_nha_cung_cap: this.dataGet.storage_nha_cung_cap,
+                        storage_gia_nhap: this.dataGet.storage_gia_nhap,
+                        storage_ly_do_tra_hang: this.ly_do,
+                    })
+                    .then((result) => {
+                        if (result.data.status_code == 200) {
+                            this.showModalSuccess = true;
+                            this.showModal = false;
+                            axios
+                                .post("/api/delete-data-ware-house", {
+                                    id: event,
+                                })
+                                .then((result) => {
+                                    if (result.data.status_code == 200) {
+                                        this.showModalSuccess = true;
+                                        this.showModal = false;
+                                        axios
+                                            .get("/api/get-data-ware-house")
+                                            .then((result) => {
+                                                this.dataResposed =
+                                                    result.data.data.data;
+
+                                                console.log(
+                                                    result.data.data.data
+                                                );
+
+                                                this.last_page =
+                                                    result.data.data.last_page;
+                                            })
+                                            .catch((err) => {
+                                                console.log(err.status);
+                                            });
+                                    } else {
+                                        alert(
+                                            "Xoá dữ liệu thất bại vui lòng thử lại sau."
+                                        );
+                                    }
+                                })
+                                .catch((err) => {
+                                    alert(
+                                        "Xoá dữ liệu thất bại vui lòng thử lại sau."
+                                    );
+                                });
+                        } else {
+                            alert("Xoá dữ liệu thất bại vui lòng thử lại sau.");
+                        }
+                    })
+                    .catch((err) => {
+                        alert("Xoá dữ liệu thất bại vui lòng thử lại sau.");
+                    });
             }
         },
 
         getDataXuat() {
             console.log("hi");
+        },
+
+        changeRadioBtn() {
+            if (this.picked == "removeAll") {
+                this.disabledRemove = true;
+            } else {
+                this.disabledRemove = false;
+            }
         },
     },
 };
@@ -335,5 +563,22 @@ td {
 }
 .text-center-custom {
     text-align: center !important;
+}
+
+.modal-mask {
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: table;
+    transition: opacity 0.3s ease;
+}
+
+.modal-wrapper {
+    display: table-cell;
+    vertical-align: middle;
 }
 </style>
