@@ -129,6 +129,35 @@
                         </tbody>
                     </table>
 
+                    <table
+                        class="table table-borderless"
+                        v-else-if="this.compare == 3"
+                    >
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Địa chỉ giao hàng</th>
+                                <th scope="col">Seri sản phẩm</th>
+                                <th scope="col">Đoạn đường di chuyển</th>
+                                <th scope="col">Thời gian dự tính</th>
+                                <th scope="col">Người giao</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr
+                                v-for="(data, index) in dataResposed"
+                                :key="'data_' + index"
+                            >
+                                <th scope="row">{{ index + 1 }}</th>
+                                <td>{{ data.ma_so_seri }}</td>
+                                <td>{{ data.ten_san_pham }}</td>
+                                <td>{{ data.kho_hang }}</td>
+                                <td>{{ formatPrice(data.gia_ban) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end">
                             <li class="page-item">
@@ -277,6 +306,7 @@ export default {
                         console.log(err.status);
                     });
             } else if (this.trang_thai == 6) {
+                this.compare = 3;
                 var to = this.toFrom[0];
                 var from = this.toFrom[1];
                 console.log(to + " - " + from);

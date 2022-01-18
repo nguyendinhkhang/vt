@@ -5442,6 +5442,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5562,19 +5591,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 7:
-                _context2.next = 23;
+                _context2.next = 24;
                 break;
 
               case 9:
                 if (!(_this2.trang_thai == 6)) {
-                  _context2.next = 17;
+                  _context2.next = 18;
                   break;
                 }
 
+                _this2.compare = 3;
                 to = _this2.toFrom[0];
                 from = _this2.toFrom[1];
                 console.log(to + " - " + from);
-                _context2.next = 15;
+                _context2.next = 16;
                 return axios.get("/api/get-data-storage-route-ship/".concat(to, "/").concat(from)).then(function (result) {
                   _this2.dataResposed = result.data.data.data;
                   _this2.last_page = result.data.data.last_page;
@@ -5582,16 +5612,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log(err.status);
                 });
 
-              case 15:
-                _context2.next = 23;
+              case 16:
+                _context2.next = 24;
                 break;
 
-              case 17:
+              case 18:
                 _this2.compare = 1;
                 to = _this2.toFrom[0];
                 from = _this2.toFrom[1];
                 console.log(to + " - " + from);
-                _context2.next = 23;
+                _context2.next = 24;
                 return axios.get("/api/get-thong-ke-don-hang/".concat(_this2.trang_thai, "/").concat(to, "/").concat(from)).then(function (result) {
                   _this2.dataResposed = result.data.data.data;
                   _this2.last_page = result.data.data.last_page;
@@ -5599,7 +5629,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log(err.status);
                 });
 
-              case 23:
+              case 24:
               case "end":
                 return _context2.stop();
             }
@@ -38627,6 +38657,32 @@ var render = function () {
                       0
                     ),
                   ])
+                : this.compare == 3
+                ? _c("table", { staticClass: "table table-borderless" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.dataResposed, function (data, index) {
+                        return _c("tr", { key: "data_" + index }, [
+                          _c("th", { attrs: { scope: "row" } }, [
+                            _vm._v(_vm._s(index + 1)),
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.ma_so_seri))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.ten_san_pham))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.kho_hang))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(_vm._s(_vm.formatPrice(data.gia_ban))),
+                          ]),
+                        ])
+                      }),
+                      0
+                    ),
+                  ])
                 : _vm._e(),
               _vm._v(" "),
               _c(
@@ -38756,6 +38812,26 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Kho hàng")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Giá bán")]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-dark" }, [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Địa chỉ giao hàng")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Seri sản phẩm")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Đoạn đường di chuyển")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Thời gian dự tính")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Người giao")]),
       ]),
     ])
   },
