@@ -20,6 +20,7 @@ class StorageRouteShip extends Migration
             $table->string('user_giao_hang')->nullable();
             $table->string('ma_so_seri')->nullable();
             $table->string('doan_duong_di_chuyen')->nullable();
+            $table->string('time_di_chuyen')->nullable();
             $table->timestamps();
         });
     }

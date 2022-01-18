@@ -19,6 +19,7 @@ class StorageRouteShipFactory extends Factory
             'user_giao_hang' => '2',
             'doan_duong_di_chuyen' => '45km',
             'ma_so_seri' => 'Test 1',
+            'time_di_chuyen' => "1",
         ];
     }
 }
