@@ -5606,8 +5606,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 console.log(to + " - " + from);
                 _context2.next = 16;
                 return axios.get("/api/get-data-storage-route-ship/".concat(to, "/").concat(from)).then(function (result) {
-                  _this2.dataResposed = result.data.data.data;
-                  _this2.last_page = result.data.data.last_page;
+                  console.log(result.data.data.data); // this.dataResposed = result.data.data.data;
+                  // this.last_page = result.data.data.last_page;
                 })["catch"](function (err) {
                   console.log(err.status);
                 });
@@ -38660,28 +38660,6 @@ var render = function () {
                 : this.compare == 3
                 ? _c("table", { staticClass: "table table-borderless" }, [
                     _vm._m(2),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.dataResposed, function (data, index) {
-                        return _c("tr", { key: "data_" + index }, [
-                          _c("th", { attrs: { scope: "row" } }, [
-                            _vm._v(_vm._s(index + 1)),
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(data.ma_so_seri))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(data.ten_san_pham))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(data.kho_hang))]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(_vm._s(_vm.formatPrice(data.gia_ban))),
-                          ]),
-                        ])
-                      }),
-                      0
-                    ),
                   ])
                 : _vm._e(),
               _vm._v(" "),
