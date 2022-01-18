@@ -24,4 +24,10 @@ class StorageRouteShip extends Model
             )
             );
     }
+
+    public static function getDataStorageRouteShip(){
+        $result = DB::table('storage_route_ships')
+                    ->orderBy('id_route_ships', 'DESC')->paginate(11);
+        return $result;
+    }
 }
