@@ -5505,11 +5505,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               to = today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2) + "-" + ("0" + (today.getDate() - 1).toString()).slice(-2) + " 00:00:00";
               from = today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2) + "-" + ("0" + (today.getDate() + 1).toString()).slice(-2) + " 00:00:00";
               _this.trang_thai = 3;
-              console.log(_this.trang_thai);
-              console.log("To: " + to);
-              console.log("From" + from);
               _this.toFrom = [to, from];
-              _context.next = 10;
+              _context.next = 7;
               return axios.get("/api/get-thong-ke-don-hang/".concat(_this.trang_thai, "/").concat(to, "/").concat(from)).then(function (result) {
                 _this.dataResposed = result.data.data.data;
                 _this.last_page = result.data.data.last_page;
@@ -5517,7 +5514,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 console.log(err.status);
               });
 
-            case 10:
+            case 7:
             case "end":
               return _context.stop();
           }
@@ -5565,24 +5562,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 7:
-                _context2.next = 18;
+                _context2.next = 23;
                 break;
 
               case 9:
                 if (!(_this2.trang_thai == 6)) {
-                  _context2.next = 12;
+                  _context2.next = 17;
                   break;
                 }
 
-                _context2.next = 18;
+                to = _this2.toFrom[0];
+                from = _this2.toFrom[1];
+                console.log(to + " - " + from);
+                _context2.next = 15;
+                return axios.get("/api/get-data-storage-route-ship/".concat(to, "/").concat(from)).then(function (result) {
+                  _this2.dataResposed = result.data.data.data;
+                  _this2.last_page = result.data.data.last_page;
+                })["catch"](function (err) {
+                  console.log(err.status);
+                });
+
+              case 15:
+                _context2.next = 23;
                 break;
 
-              case 12:
+              case 17:
                 _this2.compare = 1;
                 to = _this2.toFrom[0];
                 from = _this2.toFrom[1];
                 console.log(to + " - " + from);
-                _context2.next = 18;
+                _context2.next = 23;
                 return axios.get("/api/get-thong-ke-don-hang/".concat(_this2.trang_thai, "/").concat(to, "/").concat(from)).then(function (result) {
                   _this2.dataResposed = result.data.data.data;
                   _this2.last_page = result.data.data.last_page;
@@ -5590,7 +5599,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log(err.status);
                 });
 
-              case 18:
+              case 23:
               case "end":
                 return _context2.stop();
             }

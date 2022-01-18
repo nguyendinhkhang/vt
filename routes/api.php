@@ -62,5 +62,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // Storage Insert
     Route::post('/insert-data-storage-route-ship', [StorageRouteShip::class, 'insertDataStorageRoute'])->name('Insert-Data-Storage-Route');
-    Route::get('/get-data-storage-route-ship', [StorageRouteShip::class, 'getDataStorageRouteShip'])->name('Get-Data-Storage-route-Ship');
+    Route::get('/get-data-storage-route-ship/{from}/{to}', [StorageRouteShip::class, 'getDataStorageRouteShip'])->name('Get-Data-Storage-route-Ship');
 });

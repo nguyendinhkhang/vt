@@ -231,9 +231,6 @@ export default {
             " 00:00:00";
 
         this.trang_thai = 3;
-        console.log(this.trang_thai);
-        console.log("To: " + to);
-        console.log("From" + from);
         this.toFrom = [to, from];
 
         await axios
@@ -280,6 +277,18 @@ export default {
                         console.log(err.status);
                     });
             } else if (this.trang_thai == 6) {
+                var to = this.toFrom[0];
+                var from = this.toFrom[1];
+                console.log(to + " - " + from);
+                await axios
+                    .get(`/api/get-data-storage-route-ship/${to}/${from}`)
+                    .then((result) => {
+                        this.dataResposed = result.data.data.data;
+                        this.last_page = result.data.data.last_page;
+                    })
+                    .catch((err) => {
+                        console.log(err.status);
+                    });
             } else {
                 this.compare = 1;
                 var to = this.toFrom[0];

@@ -31,10 +31,10 @@ class StorageRouteShip extends Controller
         }
     }
 
-    public function getDataStorageRouteShip(Request $request)
+    public function getDataStorageRouteShip(Request $request,$from, $to)
     {
         try {
-            $data = RouteShip::getDataStorageRouteShip();
+            $data = RouteShip::getDataStorageRouteShip($from, $to);
             
             return response()->json([
                 'status_code' => 200,
