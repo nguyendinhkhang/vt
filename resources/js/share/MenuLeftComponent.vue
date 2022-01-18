@@ -99,7 +99,7 @@ export default {
     },
     created() {
         this.role = window.atob(localStorage.getItem("_token")).slice(0, 1);
-        console.log(this.role);
+        // console.log(this.role);
     },
 };
 </script>

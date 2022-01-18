@@ -144,18 +144,19 @@
                             </tr>
                         </thead>
 
-                        <!-- <tbody>
+                        <tbody>
                             <tr
                                 v-for="(data, index) in dataResposed"
                                 :key="'data_' + index"
                             >
                                 <th scope="row">{{ index + 1 }}</th>
+                                <td>{{ data.dia_chi_giao_hang }}</td>
                                 <td>{{ data.ma_so_seri }}</td>
-                                <td>{{ data.ten_san_pham }}</td>
-                                <td>{{ data.kho_hang }}</td>
-                                <td>{{ formatPrice(data.gia_ban) }}</td>
+                                <td>{{ data.doan_duong_di_chuyen }}</td>
+                                <td>{{ data.time_di_chuyen }}</td>
+                                <td>{{ data.name }}</td>
                             </tr>
-                        </tbody> -->
+                        </tbody>
                     </table>
 
                     <nav aria-label="Page navigation example">
@@ -313,9 +314,8 @@ export default {
                 await axios
                     .get(`/api/get-data-storage-route-ship/${to}/${from}`)
                     .then((result) => {
-                        console.log(result.data.data.data);
-                        // this.dataResposed = result.data.data.data;
-                        // this.last_page = result.data.data.last_page;
+                        this.dataResposed = result.data.data.data;
+                        this.last_page = result.data.data.last_page;
                     })
                     .catch((err) => {
                         console.log(err.status);

@@ -27,8 +27,10 @@ class StorageRouteShip extends Model
 
     public static function getDataStorageRouteShip($from, $to){
         $result = DB::table('storage_route_ships')
+                    ->select('storage_route_ships.dia_chi_giao_hang', 'storage_route_ships.ma_so_seri', 
+                    'storage_route_ships.doan_duong_di_chuyen', 'storage_route_ships.time_di_chuyen', 'users.name')
                     ->join('users', 'users.id', '=', 'storage_route_ships.user_giao_hang')
-                    ->whereBetween('updated_at', [$from, $to])
+                    ->whereBetween('storage_route_ships.updated_at', [$from, $to])
                     ->orderBy('id_route_ships', 'DESC')->paginate(11);
         return $result;
     }

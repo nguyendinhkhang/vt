@@ -351,7 +351,7 @@ export default {
                         longitude: longitude,
                     })
                     .then((result) => {
-                        console.log(result);
+                        // console.log(result);
                         if (result.data.status_code == 200) {
                             axios
                                 .post("/api/update-so-luong-order", {

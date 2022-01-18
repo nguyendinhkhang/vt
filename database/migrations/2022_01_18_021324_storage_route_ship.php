@@ -17,7 +17,7 @@ class StorageRouteShip extends Migration
             $table->increments('id_route_ships');
             $table->integer('id_quan_ly_giao');
             $table->string('dia_chi_giao_hang')->nullable();
-            $table->string('user_giao_hang')->nullable();
+            $table->integer('user_giao_hang');
             $table->string('ma_so_seri')->nullable();
             $table->string('doan_duong_di_chuyen')->nullable();
             $table->string('time_di_chuyen')->nullable();

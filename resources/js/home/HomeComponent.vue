@@ -333,8 +333,8 @@ export default {
         } else {
             var _token = window.atob(localStorage.getItem("_token"));
             this.role = window.atob(localStorage.getItem("_token")).slice(0, 1);
-            console.log(_token);
-            console.log(this.role);
+            // console.log(_token);
+            // console.log(this.role);
             if (this.role == 2) {
                 this.$router.push({ path: "/order" });
             } else {

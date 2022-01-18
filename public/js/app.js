@@ -5471,6 +5471,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -5606,8 +5607,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 console.log(to + " - " + from);
                 _context2.next = 16;
                 return axios.get("/api/get-data-storage-route-ship/".concat(to, "/").concat(from)).then(function (result) {
-                  console.log(result.data.data.data); // this.dataResposed = result.data.data.data;
-                  // this.last_page = result.data.data.last_page;
+                  _this2.dataResposed = result.data.data.data;
+                  _this2.last_page = result.data.data.last_page;
                 })["catch"](function (err) {
                   console.log(err.status);
                 });
@@ -6125,17 +6126,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               }
 
               window.location.href = "/";
-              _context.next = 16;
+              _context.next = 14;
               break;
 
             case 4:
               _token = window.atob(localStorage.getItem("_token"));
-              _this.role = window.atob(localStorage.getItem("_token")).slice(0, 1);
-              console.log(_token);
-              console.log(_this.role);
+              _this.role = window.atob(localStorage.getItem("_token")).slice(0, 1); // console.log(_token);
+              // console.log(this.role);
 
               if (!(_this.role == 2)) {
-                _context.next = 12;
+                _context.next = 10;
                 break;
               }
 
@@ -6143,15 +6143,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 path: "/order"
               });
 
-              _context.next = 16;
+              _context.next = 14;
               break;
+
+            case 10:
+              _context.next = 12;
+              return axios.get("sanctum/csrf-cookie");
 
             case 12:
               _context.next = 14;
-              return axios.get("sanctum/csrf-cookie");
-
-            case 14:
-              _context.next = 16;
               return axios.get("/api/get-data-ware-house").then(function (result) {
                 _this.dataResposed = result.data.data.data;
                 _this.last_page = result.data.data.last_page;
@@ -6159,7 +6159,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 console.log(err.status);
               });
 
-            case 16:
+            case 14:
             case "end":
               return _context.stop();
           }
@@ -6796,6 +6796,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -6879,11 +6886,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                console.log(_this3.id_kho_hang + " ID");
-                console.log(data);
+                // console.log(this.id_kho_hang + " ID");
+                // console.log(data);
                 trong_kho = parseInt(data.so_luong_trong_kho) + parseInt(data.so_luong);
                 da_xuat = parseInt(data.so_luong_da_xuat) - parseInt(data.so_luong);
-                _context3.next = 6;
+                _context3.next = 4;
                 return axios.post("/api/delete-data-order", {
                   id_quan_ly_giao: data.id_quan_ly_giao
                 }).then(function (result) {
@@ -6919,7 +6926,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log("Error: " + err);
                 });
 
-              case 6:
+              case 4:
               case "end":
                 return _context3.stop();
             }
@@ -7720,8 +7727,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     latitude: latitude,
                     longitude: longitude
                   }).then(function (result) {
-                    console.log(result);
-
+                    // console.log(result);
                     if (result.data.status_code == 200) {
                       axios.post("/api/update-so-luong-order", {
                         id_kho_hang: _this2.id_kho_hang,
@@ -7832,6 +7838,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -7874,19 +7888,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   password: _this.pwd
                 }).then(function (result) {
                   if (result.data.status_code == 200) {
-                    _this.$store.commit("setName", result.data.name);
+                    if (result.data.role === 3) {
+                      _this.$router.push({
+                        path: "/error"
+                      });
+                    } else {
+                      _this.$store.commit("setName", result.data.name);
 
-                    _this.$store.commit("setRole", result.data.role);
+                      _this.$store.commit("setRole", result.data.role);
 
-                    _this.$store.commit("setToken", result.data.access_token);
+                      _this.$store.commit("setToken", result.data.access_token);
 
-                    localStorage.setItem("_token", window.btoa(result.data.role + result.data.access_token));
-                    localStorage.setItem("_name", window.btoa(result.data.name));
-                    localStorage.setItem("_dataLogin", window.btoa(result.data.id));
+                      localStorage.setItem("_token", window.btoa(result.data.role + result.data.access_token));
+                      localStorage.setItem("_name", window.btoa(result.data.name));
+                      localStorage.setItem("_dataLogin", window.btoa(result.data.id));
 
-                    _this.$router.push({
-                      path: "/home"
-                    });
+                      _this.$router.push({
+                        path: "/home"
+                      });
+                    }
                   } else {
                     _this.validateEmail = "Tài khoản hoặc mật khẩu không đúng";
                   }
@@ -8459,7 +8479,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 4:
               _context.next = 6;
               return axios.get("/api/get-name-usr/giao-hang-tls").then(function (result) {
-                console.log(result.data.data);
+                // console.log(result.data.data);
                 _this.options = result.data.data;
               })["catch"](function (err) {
                 console.log("Error Catch");
@@ -8876,8 +8896,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.role = window.atob(localStorage.getItem("_token")).slice(0, 1);
-    console.log(this.role);
+    this.role = window.atob(localStorage.getItem("_token")).slice(0, 1); // console.log(this.role);
   }
 });
 
@@ -15185,7 +15204,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.set-input {\n  width: 50px;\n  height: 37px;\n}\n.page-link {\n  height: 37px;\n  color: red;\n}\n.page-link:hover {\n  color: black;\n}\n.page-custom {\n  height: 37px;\n  margin-top: 0.5rem;\n  margin-bottom: 0.5rem;\n}\n.page-item {\n  padding-right: 8px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.set-input {\n    width: 50px;\n    height: 37px;\n}\n.page-link {\n    height: 37px;\n    color: red;\n}\n.page-link:hover {\n    color: black;\n}\n.page-custom {\n    height: 37px;\n    margin-top: 0.5rem;\n    margin-bottom: 0.5rem;\n}\n.page-item {\n    padding-right: 8px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -15233,7 +15252,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.form-login {\n  width: 100%;\n  position: static;\n  height: 1000px;\n  background-image: url(\"https://nelsoncourse.concept4hosting.co.uk/casestudy/606302553591b-HNC-Sustainable-Construction-Design.jpg\");\n  background-repeat: no-repeat;\n  position: fixed;\n}\n.custom-row-login {\n  margin-top: 10%;\n  border-radius: 25px;\n  background-color: white;\n  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;\n}\n.custom-logo-login {\n  display: flex;\n  justify-content: center;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.form-login {\n    width: 100%;\n    position: static;\n    height: 1000px;\n    background-image: url(\"https://nelsoncourse.concept4hosting.co.uk/casestudy/606302553591b-HNC-Sustainable-Construction-Design.jpg\");\n    background-repeat: no-repeat;\n    position: fixed;\n}\n.custom-row-login {\n    margin-top: 10%;\n    border-radius: 25px;\n    background-color: white;\n    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;\n}\n.custom-logo-login {\n    display: flex;\n    justify-content: center;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38660,6 +38679,28 @@ var render = function () {
                 : this.compare == 3
                 ? _c("table", { staticClass: "table table-borderless" }, [
                     _vm._m(2),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.dataResposed, function (data, index) {
+                        return _c("tr", { key: "data_" + index }, [
+                          _c("th", { attrs: { scope: "row" } }, [
+                            _vm._v(_vm._s(index + 1)),
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.dia_chi_giao_hang))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.ma_so_seri))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.doan_duong_di_chuyen))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.time_di_chuyen))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.name))]),
+                        ])
+                      }),
+                      0
+                    ),
                   ])
                 : _vm._e(),
               _vm._v(" "),
@@ -39939,7 +39980,11 @@ var render = function () {
                               },
                             },
                           },
-                          [_vm._v("Thu hồi")]
+                          [
+                            _vm._v(
+                              "\n                                    Thu hồi\n                                "
+                            ),
+                          ]
                         ),
                       ]),
                     ])
@@ -39956,7 +40001,11 @@ var render = function () {
                     _c("li", { staticClass: "page-item" }, [
                       _c("p", { staticClass: "page-custom" }, [
                         _vm._v(
-                          _vm._s(_vm.first_page) + "/" + _vm._s(_vm.last_page)
+                          "\n                                " +
+                            _vm._s(_vm.first_page) +
+                            "/" +
+                            _vm._s(_vm.last_page) +
+                            "\n                            "
                         ),
                       ]),
                     ]),
@@ -40850,7 +40899,7 @@ var render = function () {
               staticClass: "input-group-text w-25",
               attrs: { id: "inputGroup-sizing-default" },
             },
-            [_vm._v("Email\n        ")]
+            [_vm._v("Email\n                ")]
           ),
           _vm._v(" "),
           _c("input", {
@@ -40933,7 +40982,7 @@ var render = function () {
             attrs: { type: "button" },
             on: { click: _vm.login },
           },
-          [_vm._v("\n        Đăng nhập\n      ")]
+          [_vm._v("\n                Đăng nhập\n            ")]
         ),
       ]),
       _vm._v(" "),

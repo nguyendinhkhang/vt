@@ -161,7 +161,7 @@ export default {
         await axios
             .get("/api/get-name-usr/giao-hang-tls")
             .then((result) => {
-                console.log(result.data.data);
+                // console.log(result.data.data);
                 this.options = result.data.data;
             })
             .catch((err) => {
