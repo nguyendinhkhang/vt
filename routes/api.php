@@ -7,6 +7,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\WareHouseController;
 use App\Http\Controllers\StorageRemoveController;
+use App\Http\Controllers\StorageRouteShip;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,4 +59,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // Storage Remove
     Route::get('/get-data-storage-remove', [StorageRemoveController::class, 'getDataStorage'])->name('Get-Data-Storage');
     Route::post('/insert-data-storage-remove', [StorageRemoveController::class, 'insertDataStorage'])->name('Insert-Data-Storage');
+
+    // Storage Insert
+    Route::post('/insert-data-storage-route-ship', [StorageRouteShip::class, 'insertDataStorageRoute'])->name('Insert-Data-Storage-Route');
 });
