@@ -15,6 +15,22 @@ import UserComponent from "../../resources/js/user/UserComponent";
 import UserEditComponent from "../../resources/js/user/UserEditComponent";
 import UserCreateComponent from "../../resources/js/user/UserCreateComponent";
 
+import SupplierComponent from "../../resources/js/Supplier/SupplierComponent";
+import SupplierDetailsComponent from "../../resources/js/Supplier/SupplierDetailsComponent";
+import SupplierEditComponent from "../../resources/js/Supplier/SupplierEditComponent";
+import SupplierCreateComponent from "../../resources/js/Supplier/SupplierCreateComponent";
+import ManageSupplierComponent from "../../resources/js/Supplier/ManageSupplierComponent";
+import SupplierDetails2Component from "../../resources/js/Supplier/SupplierDetails2Component";
+
+import WarehouseComponent from "../../resources/js/warehouse/WarehouseComponent";
+import WarehouseCreateComponent from "../../resources/js/warehouse/WarehouseCreateComponent";
+import WarehouseEditComponent from "../../resources/js/warehouse/WarehouseEditComponent";
+import WareHouseListWithReceiptComponent from "../../resources/js/warehouse/WareHouseListWithReceiptComponent";
+
+import PrintWareHouseComponent from "../../resources/js/printFile/PrintWareHouseComponent";
+import HistoryPurcharse from "../../resources/js/Supplier/HistoryPurcharse";
+import ManagePurcharse from "../../resources/js/Supplier/ManagePurcharse";
+
 const routes = [
     {
         path: "/",
@@ -22,9 +38,54 @@ const routes = [
         name: "LoginCompoment",
     },
     {
+        path: "/supplier",
+        component: SupplierComponent,
+        name: "SupplierComponent",
+    },
+    {
+        path: "/supplier/details/:name",
+        component: SupplierDetailsComponent,
+        name: "SupplierDetailsComponent",
+    },
+    {
+        path: "/supplier/detail",
+        component: SupplierDetails2Component,
+        name: "SupplierDetails2Component",
+    },
+    {
+        path: "/supplier/edit?id=:id",
+        component: SupplierEditComponent,
+        name: "SupplierEditComponent",
+    },
+    {
+        path: "/supplier/create-supplier",
+        component: SupplierCreateComponent,
+        name: "SupplierCreateComponent",
+    },
+    {
+        path: "/supplier/manage",
+        component: ManageSupplierComponent,
+        name: "ManageSupplierComponent",
+    },
+    {
         path: "/home",
+        component: WarehouseComponent,
+        name: "WarehouseComponent",
+    },
+    {
+        path: "/home/warehouse?id=:id",
         component: HomeComponent,
         name: "HomeComponent",
+    },
+    {
+        path: "/home/create-ware-house",
+        component: WarehouseCreateComponent,
+        name: "WarehouseCreateComponent",
+    },
+    {
+        path: "/home/editData?id=:id",
+        component: WarehouseEditComponent,
+        name: "WarehouseEditComponent",
     },
     {
         path: "/order",
@@ -85,6 +146,26 @@ const routes = [
         path: "/kho-luu-tru",
         component: SaveComponent,
         name: "SaveComponent",
+    },
+    {
+        path: "/print-data",
+        component: PrintWareHouseComponent,
+        name: "PrintWareHouseComponent",
+    },
+    {
+        path: "/data-receipt",
+        component: WareHouseListWithReceiptComponent,
+        name: "WareHouseListWithReceiptComponent",
+    },
+    {
+      path: "/history-purchase",
+      component: HistoryPurcharse,
+      name: "HistoryPurcharse",
+    },
+    {
+      path: "/manage-purchase",
+      component: ManagePurcharse,
+      name: "ManagePurcharse",
     },
 ];
 

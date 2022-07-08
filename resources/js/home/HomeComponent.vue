@@ -6,15 +6,166 @@
                 <menu-left></menu-left>
 
                 <div class="col-sm-10 custom-table">
-                    <div class="pb-2 custom-location-btn">
-                        <router-link
-                            class="btn w-25 btn-custom-center"
-                            to="/home/tao-kho-hang"
-                        >
-                            Thêm mới
-                        </router-link>
+                    <div class="row pt-2">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-4">
+                            <select
+                                name="month"
+                                id="month"
+                                style="
+                                    height: 2.5rem;
+                                    border-radius: 8px;
+                                    border: 1px;
+                                    color: #ea0a2a;
+                                    float: right;
+                                    width: 13rem;
+                                "
+                                @change="selectProductChange($event)"
+                            >
+                                <option value="ma_so_seri">Seri</option>
+                                <option value="ten_san_pham">
+                                    Tên sản phẩm
+                                </option>
+                                <option value="nha_cung_cap">
+                                    Nhà cung cấp
+                                </option>
+                                <option value="ma_san_pham">
+                                    Mã số sản phẩm
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <input
+                                style="
+                                    height: 2.5rem;
+                                    border-radius: 8px;
+                                    border: 1px;
+                                    color: rgb(234, 10, 42);
+                                    width: 13rem;
+                                    background-color: white;
+                                "
+                                type="text"
+                                v-model="search"
+                                placeholder="Tìm kiếm"
+                                class="form-control"
+                                v-on:keyup.enter="filteredProducts()"
+                            />
+                        </div>
+                        <div class="col-sm-2"></div>
                     </div>
-                    <table class="table table-borderless">
+
+                    <div class="row custom-row-analyst">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-4">
+                            <div class="block">
+                                <h4 class="head-analyst">
+                                    Tổng hàng trong kho
+                                </h4>
+                                <h4>{{ this.totalProduct }}</h4>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="block">
+                                <h4 class="head-analyst">
+                                    Số lượng hàng tồn trong tháng
+                                    <select
+                                        name="month"
+                                        id="month"
+                                        class="pb-2 custom-location-btn"
+                                        style="
+                                            height: 2rem;
+                                            border-radius: 8px;
+                                            border: 1px;
+                                            color: #ea0a2a;
+                                        "
+                                        @change="selectDataChange($event)"
+                                    >
+                                        <option
+                                            value="1"
+                                            :selected="month === 1"
+                                        >
+                                            1
+                                        </option>
+                                        <option
+                                            value="2"
+                                            :selected="month === 2"
+                                        >
+                                            2
+                                        </option>
+                                        <option
+                                            value="3"
+                                            :selected="month === 3"
+                                        >
+                                            3
+                                        </option>
+                                        <option
+                                            value="4"
+                                            :selected="month === 4"
+                                        >
+                                            4
+                                        </option>
+                                        <option
+                                            value="5"
+                                            :selected="month === 5"
+                                        >
+                                            5
+                                        </option>
+                                        <option
+                                            value="6"
+                                            :selected="month === 6"
+                                        >
+                                            6
+                                        </option>
+                                        <option
+                                            value="7"
+                                            :selected="month === 7"
+                                        >
+                                            7
+                                        </option>
+                                        <option
+                                            value="8"
+                                            :selected="month === 8"
+                                        >
+                                            8
+                                        </option>
+                                        <option
+                                            value="9"
+                                            :selected="month === 9"
+                                        >
+                                            9
+                                        </option>
+                                        <option
+                                            value="10"
+                                            :selected="month === 10"
+                                        >
+                                            10
+                                        </option>
+                                        <option
+                                            value="11"
+                                            :selected="month === 11"
+                                        >
+                                            11
+                                        </option>
+                                        <option
+                                            value="12"
+                                            :selected="month === 12"
+                                        >
+                                            12
+                                        </option>
+                                    </select>
+                                </h4>
+                                <h4>{{ this.totalProductInMonth }}</h4>
+                            </div>
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+
+                    <table
+                        class="table table-borderless"
+                        style="padding-top: 15px"
+                    >
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col text-center-custom">ID</th>
@@ -23,13 +174,22 @@
                                     Tên sản phẩm
                                 </th>
                                 <th scope="col text-center-custom">
+                                    Mã sản phẩm
+                                </th>
+                                <th scope="col text-center-custom">
                                     Nhà cung cấp
                                 </th>
                                 <th scope="col text-center-custom">Giá nhập</th>
-                                <th scope="col text-center-custom">Giá bán</th>
-                                <th scope="col text-center-custom">Kho hàng</th>
-                                <th scope="col text-center-custom">Tồn kho</th>
+                                <!-- <th scope="col text-center-custom">Tồn kho</th> -->
+                                <th scope="col text-center-custom">Tạm ứng</th>
+                                <th scope="col text-center-custom">Thực tế</th>
+                                <th scope="col text-center-custom">
+                                    Tổng sản phẩm
+                                </th>
                                 <th scope="col text-center-custom">Đã xuất</th>
+                                <th scope="col text-center-custom">
+                                    Thời gian tồn kho
+                                </th>
                                 <th scope="col text-center-custom">
                                     Hành động
                                 </th>
@@ -37,20 +197,20 @@
                         </thead>
                         <tbody>
                             <tr
-                                v-for="(data, index) in dataResposed"
+                                v-for="(data, index) in arrSearch.length != 0
+                                    ? arrSearch
+                                    : dataResposed"
                                 :key="'data_kho_' + index"
                             >
                                 <th scope="row">{{ index + 1 }}</th>
                                 <td>{{ data.ma_so_seri }}</td>
                                 <td>{{ data.ten_san_pham }}</td>
+                                <td>{{ data.ma_san_pham }}</td>
                                 <td>{{ data.nha_cung_cap }}</td>
                                 <td>{{ data.gia_nhap }}</td>
-                                <td>{{ data.gia_ban }}</td>
-                                <td>{{ data.kho_hang }}</td>
-
-                                <td>
-                                    {{ data.so_luong_trong_kho }}
-                                </td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>{{ data.so_luong_trong_kho }}</td>
 
                                 <td
                                     v-if="data.so_luong_da_xuat > 0"
@@ -69,6 +229,28 @@
                                 </td>
                                 <td v-else>
                                     {{ data.so_luong_da_xuat }}
+                                </td>
+
+                                <td>
+                                    {{
+                                        Math.round(
+                                            Math.abs(
+                                                (new Date(
+                                                    new Date()
+                                                        .toISOString()
+                                                        .slice(0, 10)
+                                                ) -
+                                                    new Date(
+                                                        data.updated_at.slice(
+                                                            0,
+                                                            -9
+                                                        )
+                                                    )) /
+                                                    (24 * 60 * 60 * 1000)
+                                            )
+                                        )
+                                    }}
+                                    Ngày
                                 </td>
 
                                 <td>
@@ -325,6 +507,17 @@ export default {
             showModalSuccess: false,
             removeID: 0,
             dataGet: null,
+            rolte: null,
+            _token: null,
+            id: null,
+            totalProduct: 0,
+            totalProductInMonth: 0,
+            search: "",
+            arrSearch: [],
+            month: 0,
+            year: 0,
+            setStatusLoadData: 0,
+            valueProductChange: "ma_so_seri",
         };
     },
     async created() {
@@ -333,17 +526,40 @@ export default {
         } else {
             var _token = window.atob(localStorage.getItem("_token"));
             this.role = window.atob(localStorage.getItem("_token")).slice(0, 1);
-            // console.log(_token);
-            // console.log(this.role);
+            this.id = this.$route.params.id;
+            const d = new Date();
+            this.month = d.getMonth() + 1;
+            this.year = d.getFullYear();
+            console.log(_token);
             if (this.role == 2) {
                 this.$router.push({ path: "/order" });
             } else {
                 await axios.get("sanctum/csrf-cookie");
                 await axios
-                    .get("/api/get-data-ware-house")
+                    .get(`/api/get-data-ware-house/${this.$route.params.id}`)
                     .then((result) => {
                         this.dataResposed = result.data.data.data;
                         this.last_page = result.data.data.last_page;
+                        console.log(this.dataResposed);
+                        axios
+                            .get(
+                                `/api/get-sum-ware-house/${
+                                    this.$route.params.id
+                                }/${
+                                    this.year +
+                                    "-" +
+                                    ("0" + this.month).slice(-2)
+                                }`
+                            )
+                            .then((result) => {
+                                this.totalProduct = result.data.data[0].total;
+                                this.totalProductInMonth =
+                                    result.data.data[1].total;
+                                this.setStatusLoadData = 0;
+                            })
+                            .catch((err) => {
+                                alert(err.status);
+                            });
                     })
                     .catch((err) => {
                         console.log(err.status);
@@ -353,14 +569,48 @@ export default {
     },
     methods: {
         async changePage(page) {
-            await axios
-                .get("/api/get-data-ware-house?page=" + page)
-                .then((result) => {
-                    this.dataResposed = result.data.data.data;
-                })
-                .catch((err) => {
-                    console.log(err.status);
-                });
+            let route = "";
+            if (this.search.length != 0) {
+                route = `search-data-ware-house`;
+                let month = "";
+                if (this.setStatusLoadData == 1) {
+                    month = this.year + "-" + ("0" + this.month).slice(-2);
+                } else {
+                    month = "2022";
+                }
+                await axios
+                    .post(`/api/${route}?page=` + page, {
+                        id: this.id,
+                        column: this.valueProductChange,
+                        dataSearch: this.search,
+                        month: month,
+                    })
+                    .then((result) => {
+                        if (result.data.status_code == 200) {
+                            this.arrSearch = result.data.data.data;
+                        } else {
+                            alert("Lỗi: " + result.data.status_code);
+                        }
+                    })
+                    .catch((err) => {
+                        alert("Có lỗi xảy ra trong quá trình lấy dữ liệu");
+                    });
+            } else {
+                if (this.setStatusLoadData === 0) {
+                    route = `get-data-ware-house/${this.id}`;
+                } else if (this.setStatusLoadData === 1) {
+                    let date = this.year + "-" + ("0" + this.month).slice(-2);
+                    route = `get-data-count-ware-house/${this.id}/${date}`;
+                }
+                await axios
+                    .get(`/api/${route}?page=` + page)
+                    .then((result) => {
+                        this.dataResposed = result.data.data.data;
+                    })
+                    .catch((err) => {
+                        console.log(err.status);
+                    });
+            }
         },
 
         onChangePageInput() {
@@ -516,6 +766,84 @@ export default {
                 this.disabledRemove = false;
             }
         },
+
+        async filteredProducts() {
+            if (this.search.length != 0) {
+                this.postSearch();
+                // this.arrSearch = this.dataResposed.filter(
+                //     (p) =>
+                //         p.ten_san_pham
+                //             .toLowerCase()
+                //             .indexOf(this.search.toLowerCase()) != -1
+                // );
+            } else {
+                this.arrSearch = [];
+                this.setStatusLoadData = 0;
+            }
+
+            console.log(this.arrSearch.length);
+        },
+
+        async postSearch() {
+            let month = "";
+            if (this.setStatusLoadData == 1) {
+                month = this.year + "-" + ("0" + this.month).slice(-2);
+            } else {
+                month = "2022";
+            }
+            await axios
+                .post("/api/search-data-ware-house", {
+                    id: this.id,
+                    column: this.valueProductChange,
+                    dataSearch: this.search,
+                    month: month,
+                })
+                .then((result) => {
+                    if (result.data.status_code == 200) {
+                        this.arrSearch = result.data.data.data;
+                    } else {
+                        alert("Lỗi: " + result.data.status_code);
+                    }
+                })
+                .catch((err) => {
+                    alert("Có lỗi xảy ra trong quá trình lấy dữ liệu");
+                });
+        },
+
+        async selectDataChange(e) {
+            this.month = e.target.value;
+            let date = this.year + "-" + ("0" + e.target.value).slice(-2);
+            this.setStatusLoadData = 1;
+            if (this.search.length != 0) {
+                this.postSearch();
+            } else {
+                await axios
+                    .get(`/api/get-sum-ware-house/${this.id}/${date}`)
+                    .then((result) => {
+                        this.totalProduct = result.data.data[0].total;
+                        this.totalProductInMonth = result.data.data[1].total;
+                        axios
+                            .get(
+                                `/api/get-data-count-ware-house/${this.id}/${date}`
+                            )
+                            .then((result) => {
+                                this.arrSearch = [];
+                                this.dataResposed = result.data.data.data;
+                                this.last_page = result.data.data.last_page;
+                            })
+                            .catch((err) => {
+                                alert(err.status);
+                            });
+                    })
+                    .catch((err) => {
+                        alert(err.status);
+                    });
+            }
+        },
+
+        selectProductChange(e) {
+            this.valueProductChange = e.target.value;
+        },
     },
 };
 </script>
@@ -580,5 +908,20 @@ td {
 .modal-wrapper {
     display: table-cell;
     vertical-align: middle;
+}
+
+.block {
+    text-align: center;
+    background-color: #ffff;
+    box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.custom-row-analyst {
+    padding: 16px;
+}
+.head-analyst {
+    color: #ea0a2a;
 }
 </style>

@@ -4,7 +4,7 @@
             <ul class="nav flex-column pmd-sidebar-nav">
                 <li class="nav-item nav-custom">
                     <img
-                        src="https://sieuthicongngheviettel.vn/wp-content/uploads/2021/11/Logo-Viettel.png"
+                        src="https://i.ibb.co/B4cnJKD/LOGO-KGR.jpg"
                         width="100px"
                         height="30px"
                     />
@@ -13,15 +13,24 @@
                     class="nav-item nav-custom li-custom-top"
                     v-if="this.role != 2"
                 >
+                    <router-link class="nav-link set-text" to="/supplier">
+                        <img
+                            src="https://i.ibb.co/QX2LxB5/kho-2.png"
+                            width="52px"
+                            height="52px"
+                        />
+                        <p class="media-body custom-text-nav-left">
+                            Nhà cung cấp
+                        </p>
+                    </router-link>
+
                     <router-link class="nav-link set-text" to="/home">
                         <img
                             src="https://i.ibb.co/QX2LxB5/kho-2.png"
                             width="52px"
                             height="52px"
                         />
-                        <span class="media-body custom-text-nav-left"
-                            >Kho hàng</span
-                        >
+                        <p class="media-body custom-text-nav-left">Kho hàng</p>
                     </router-link>
                 </li>
 
@@ -32,9 +41,7 @@
                             width="52px"
                             height="52px"
                         />
-                        <span class="media-body custom-text-nav-left"
-                            >Đơn hàng</span
-                        >
+                        <p class="media-body custom-text-nav-left">Đơn hàng</p>
                     </router-link>
                 </li>
 
@@ -45,9 +52,7 @@
                             width="52px"
                             height="52px"
                         />
-                        <span class="media-body custom-text-nav-left"
-                            >Thống kê</span
-                        >
+                        <p class="media-body custom-text-nav-left">Thống kê</p>
                     </router-link>
                 </li>
 
@@ -61,9 +66,7 @@
                             width="52px"
                             height="52px"
                         />
-                        <span class="media-body custom-text-nav-left">
-                            Quản trị</span
-                        >
+                        <p class="media-body custom-text-nav-left">Quản trị</p>
                     </router-link>
                 </li>
 
@@ -77,12 +80,12 @@
                             width="52px"
                             height="52px"
                         />
-                        <span
+                        <p
                             class="media-body custom-text-nav-left"
                             style="padding-left: 4px"
                         >
-                            Lưu trữ</span
-                        >
+                            Lưu trữ
+                        </p>
                     </router-link>
                 </li>
             </ul>
@@ -106,7 +109,7 @@ export default {
 <style>
 .menu-left {
     background-color: #ffff;
-    height: 38em;
+    height: 44em;
     border-radius: 25px;
     margin-top: -3rem;
     margin-left: 10px;
@@ -124,7 +127,13 @@ export default {
     padding-top: 5px;
 }
 .custom-text-nav-left {
-    font-size: 12.5px;
+    font-size: 12px;
     color: #ea0a2a;
+    text-align: center;
+    margin-bottom: 0;
+    margin-top: 2px;
+}
+.nav-link > img {
+    margin-left: 6px;
 }
 </style>

@@ -5,7 +5,7 @@
             <div class="col-sm-4 custom-row-login">
                 <div class="p-4 custom-logo-login">
                     <img
-                        src="https://sieuthicongngheviettel.vn/wp-content/uploads/2021/11/Logo-Viettel.png"
+                        src="https://i.ibb.co/B4cnJKD/LOGO-KGR.jpg"
                         width="150px"
                         height="45px"
                     />
